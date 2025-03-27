@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<users>
+    <user>
+        <name>
+            Sas
+        </name>
+        <surrname>
+            Zombie
+        </surrname>
+        <readingLvl>
+            Intermediate
+        </readingLvl>
+        <preferedTheme>
+            Magic
+        </preferedTheme>
+    </user>
+</users>

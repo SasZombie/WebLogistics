@@ -1,0 +1,8 @@
+<!ELEMENT books (book+)>
+<!ATTLIST books xmlns:xsi CDATA #IMPLIED>
+<!ATTLIST books xsi:noNamespaceSchemaLocation CDATA #IMPLIED>
+<!ELEMENT book (title, theme1, theme2, readingLvl)>
+<!ELEMENT title (#PCDATA)>
+<!ELEMENT theme1 (#PCDATA)>
+<!ELEMENT theme2 (#PCDATA)>
+<!ELEMENT readingLvl (#PCDATA)>
