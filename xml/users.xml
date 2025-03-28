@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<users>
+    <user>
+        <name>
+            Sas
+        </name>
+        <surrname>
+            Zombie
+        </surrname>
+        <preferedTheme>
+            Magic
+        </preferedTheme>
+        <readingLvl>
+            Intermediate
+        </readingLvl>
+    </user>
+    <user>
+        <name>Salut</name>
+        <surrname>123</surrname>
+        <preferedTheme>213312</preferedTheme>
+        <readingLvl>Beginer</readingLvl>
+    </user>
+    <user>
+        <name>Salut</name>
+        <surrname>123</surrname>
+        <preferedTheme>213312</preferedTheme>
+        <readingLvl>Beginer</readingLvl>
+    </user>
+    <user>
+        <name>Salut</name>
+        <surrname>123</surrname>
+        <preferedTheme>213312</preferedTheme>
+        <readingLvl>Beginer</readingLvl>
+    </user>
+</users>

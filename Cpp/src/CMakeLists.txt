@@ -10,3 +10,5 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ../bin)
 
 add_executable(getAllEntriesBook getAllEntriesBook.cpp xmlParser/xmlparser.cpp)
 add_executable(addEntryInBook addEntryInBook.cpp xmlParser/xmlparser.cpp)
+add_executable(addEntryInUser addEntryInUser.cpp xmlParser/xmlparser.cpp)
+add_executable(getAllEntriesUser getAllEntriesUser.cpp xmlParser/xmlparser.cpp)

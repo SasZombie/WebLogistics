@@ -1,14 +1,10 @@
 import { exec } from "child_process";
 import { defineEventHandler } from "h3";
-import { Book } from "~/types/book";
+
 
 export default defineEventHandler(async (event) => {
-  const body: Book = await readBody(event);
-  const { title, theme1, theme2, readingLvl } = body;
-
-  const cppExec = `./Cpp/bin/addEntryInBook "${title}" "${theme1}" "${theme2}" "${readingLvl}"`;
-
   return new Promise<{ message: string }>((resolve, reject) => {
+    const cppExec = "./Cpp/bin/getAllEntriesUser";
 
     exec(cppExec, (err, stdout, stderr) => {
       if (err) {
@@ -23,7 +19,7 @@ export default defineEventHandler(async (event) => {
         return reject({ statusCode: 500, message: "Error in C++ program" });
       }
 
-      resolve({ message: stdout.trim() });
+      resolve({ message: `C++ Program Output: ${stdout.trim()}` });
     });
   });
 });

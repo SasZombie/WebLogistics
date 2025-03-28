@@ -1,27 +1,28 @@
 import { ref } from 'vue';
+import type { Book } from '@/types/book';
 
-
-export const useGetOutput = () => {
-    const cppOutput = ref('');
-    const formBody = ref({
+export const useGetOutputBook = () => {
+    const bookOutput = ref('');
+    const formBodyBook = ref<Book>({
         title: '',
         theme1: '',
         theme2: '',
         readingLvl: ''
     });
-    const fetchCppOutput = async () => {
+
+    const getAllEntriesBook = async () => {
         try {
             const response = await fetch('/api/getAllEntriesBook');
             const data = await response.json();
     
-            cppOutput.value = data.message;
+            bookOutput.value = data.message;
         } catch (error) {
-            cppOutput.value = 'Failed to fetch output from C++ program.';
+            bookOutput.value = 'Failed to fetch output from C++ program.';
             console.error(error);
         }
     };
 
-    const submitForm = async () =>{
+    const submitFormBook = async () =>{
         try {
             const response = await fetch('/api/addEntryBook',{
                 method: "POST",
@@ -29,22 +30,20 @@ export const useGetOutput = () => {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
-                    title: formBody.value.title,
-                    theme1: formBody.value.theme1,
-                    theme2: formBody.value.theme2,
-                    readingLvl: formBody.value.readingLvl,
+                    title: formBodyBook.value.title,
+                    theme1: formBodyBook.value.theme1,
+                    theme2: formBodyBook.value.theme2,
+                    readingLvl: formBodyBook.value.readingLvl,
                 })
             });
             const data = await response.json();
     
-            cppOutput.value = data.message;
         } catch (error) {
-            cppOutput.value = 'Failed to add.';
             console.error(error);
         }
     };
 
     return {
-        cppOutput, fetchCppOutput, submitForm, formBody
+        bookOutput, getAllEntriesBook, submitFormBook, formBodyBook
     };
 };

@@ -1,12 +1,12 @@
 import { exec } from "child_process";
 import { defineEventHandler } from "h3";
-import { Book } from "~/types/book";
+import { User } from "~/types/user";
 
 export default defineEventHandler(async (event) => {
-  const body: Book = await readBody(event);
-  const { title, theme1, theme2, readingLvl } = body;
+  const body:User = await readBody(event);
+  const { name, surrname, preferedTheme, readingLvl } = body;
 
-  const cppExec = `./Cpp/bin/addEntryInBook "${title}" "${theme1}" "${theme2}" "${readingLvl}"`;
+  const cppExec = `./Cpp/bin/addEntryInUser "${name}" "${surrname}" "${preferedTheme}" "${readingLvl}"`;
 
   return new Promise<{ message: string }>((resolve, reject) => {
 
