@@ -15,22 +15,4 @@
             Intermediate
         </readingLvl>
     </user>
-    <user>
-        <name>Salut</name>
-        <surrname>123</surrname>
-        <preferedTheme>213312</preferedTheme>
-        <readingLvl>Beginer</readingLvl>
-    </user>
-    <user>
-        <name>Salut</name>
-        <surrname>123</surrname>
-        <preferedTheme>213312</preferedTheme>
-        <readingLvl>Beginer</readingLvl>
-    </user>
-    <user>
-        <name>Salut</name>
-        <surrname>123</surrname>
-        <preferedTheme>213312</preferedTheme>
-        <readingLvl>Beginer</readingLvl>
-    </user>
 </users>

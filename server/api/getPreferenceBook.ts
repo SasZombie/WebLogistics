@@ -1,12 +1,17 @@
-import { exec, spawn } from "child_process";
-import type { Book } from "@/types/book";
+import { spawn } from "child_process";
 import { defineEventHandler } from "h3";
+import { Book } from "~/types/book";
 
 export default defineEventHandler(async (event) => {
-  return new Promise<{ books: Book[] }>((resolve, reject) => {
-    const cppExec = "./Cpp/bin/getAllEntriesBook";
+  const body = await readBody(event);
+  const { xPath } = body;
 
-    const child = spawn(cppExec);
+  return new Promise<{ books: Book[] }>((resolve, reject) => {
+
+    console.log(xPath)
+    const cppExec = "./Cpp/bin/getBooksBasedOnCriteria";
+
+    const child = spawn(cppExec, [xPath]);
 
     let output = "";
     let errorOut = "";
@@ -19,6 +24,7 @@ export default defineEventHandler(async (event) => {
       errorOut += data.toString();
     });
 
+
     child.on("close", (code) => {
       if (code != 0) {
         console.error(`Error ${errorOut}`);
@@ -30,7 +36,7 @@ export default defineEventHandler(async (event) => {
       }
 
       try {
-        // console.log(output)
+        console.log(output);
         const books: Book[] = JSON.parse(output.trim());
         if (!Array.isArray(books)) {
           return reject({

@@ -1,29 +1,35 @@
 <template>
-    <div>
-        <p>
-            {{ bookOutput }}
-        </p>
+    <div class="flex justify-between space-x-8">
+        <div class="w-1/2 text-left px-4">
+            <h2>Books</h2>
+            <div v-for="book in booksOutput" :key="book.title">
+                <h3>{{ book.title }}</h3>
+                <h3>{{ book.theme1 }} - {{ book.theme2 }}</h3>
+                <h3>{{ book.readingLvl }}</h3>
+            </div>
+        </div>
+        
+        <div class="w-1/2 text-right px-4">
+            <h2>Users</h2>
+            <div v-for="user in usersOutput" :key="user.name">
+                <h3 @click="recomand(user.readingLvl)"  class="cursor-pointer">{{ user.name }}</h3>
+            </div>
+        </div>
 
-
-        <button @click="getAllEntriesUser">Fetch User</button>
-        <p>
-            {{ userOutput }}
-        </p>
-
-        <form @submit.prevent="addBook" method="post">
+        <button @click="getBookMultiple">Get Multiple</button>
+    </div>
+        <!-- <form @submit.prevent="addBook">
             <div>
                 <label for="title">Title:</label>
-                <input class="text" type="text" id="title" v-model="formBodyBook.title" />
+                <input type="text" id="title" v-model="formBodyBook.title" />
             </div>
             <div>
-                <label for="theme1">Theme1:</label>
-                <input class="text" type="text" id="theme1" v-model="formBodyBook.theme1" />
-
+                <label for="theme1">Theme 1:</label>
+                <input type="text" id="theme1" v-model="formBodyBook.theme1" />
             </div>
-
             <div>
-                <label for="theme2">Theme2:</label>
-                <input class="text" type="text" id="theme2" v-model="formBodyBook.theme2" />
+                <label for="theme2">Theme 2:</label>
+                <input type="text" id="theme2" v-model="formBodyBook.theme2" />
             </div>
             <div>
                 <label for="readingLvl">Reading Level:</label>
@@ -34,24 +40,24 @@
                     <option value="Advanced">Advanced</option>
                 </select>
             </div>
-            <button type="submit">Send</button>
-        </form>
-        <br>
-<!-- USER FORM -->
-        <form @submit.prevent="addUser" method="post">
+            <button type="submit">
+                Add Book
+            </button>
+        </form> -->
+
+
+        <!-- <form @submit.prevent="addUser" class="mt-4 space-y-3">
             <div>
                 <label for="name">Name:</label>
-                <input class="text" type="text" id="name" v-model="formBodyUser.name" />
+                <input type="text" id="name" v-model="formBodyUser.name" />
             </div>
             <div>
-                <label for="surrname">Surrname:</label>
-                <input class="text" type="text" id="surrname" v-model="formBodyUser.surrname" />
-
+                <label for="surrname">Surname:</label>
+                <input type="text" id="surrname" v-model="formBodyUser.surrname" />
             </div>
-
             <div>
-                <label for="prefferedTheme">Preffered Theme:</label>
-                <input class="text" type="text" id="theme2" v-model="formBodyUser.preferedTheme" />
+                <label for="prefferedTheme">Preferred Theme:</label>
+                <input type="text" id="prefferedTheme" v-model="formBodyUser.preferedTheme" />
             </div>
             <div>
                 <label for="readingLvlUser">Reading Level:</label>
@@ -62,9 +68,10 @@
                     <option value="Advanced">Advanced</option>
                 </select>
             </div>
-            <button type="submit">Send</button>
-        </form>
-    </div>
+            <button type="submit">
+                Add User
+            </button>
+        </form> -->
 </template>
 
 <script lang="ts" setup>
@@ -73,13 +80,17 @@ import { onMounted } from 'vue';
 import { useGetOutputBook } from '@/composables/useGetOutputBook';
 import { useGetOutputUser } from '@/composables/useGetOutputUser';
 
-const { bookOutput, getAllEntriesBook, submitFormBook, formBodyBook } = useGetOutputBook();
-const { getAllEntriesUser, userOutput, submitFormUser, formBodyUser } = useGetOutputUser();
+const { booksOutput, getAllEntriesBook, submitFormBook, formBodyBook, getBookByReadingLevel, getBookMultiple } = useGetOutputBook();
+const { getAllEntriesUser, usersOutput, submitFormUser, formBodyUser } = useGetOutputUser();
 
-onMounted(() =>{
+onMounted(() => {
     getAllEntriesBook();
     getAllEntriesUser();
 })
+
+const recomand = async (readingLvl: string) => {
+    getBookByReadingLevel(readingLvl);
+}
 
 const addBook = async () => {
     await submitFormBook();
