@@ -7,8 +7,6 @@ export default defineEventHandler(async (event) => {
   const { xPath } = body;
 
   return new Promise<{ books: Book[] }>((resolve, reject) => {
-
-    console.log(xPath)
     const cppExec = "./Cpp/bin/getBooksBasedOnCriteria";
 
     const child = spawn(cppExec, [xPath]);
@@ -24,7 +22,6 @@ export default defineEventHandler(async (event) => {
       errorOut += data.toString();
     });
 
-
     child.on("close", (code) => {
       if (code != 0) {
         console.error(`Error ${errorOut}`);
@@ -36,15 +33,14 @@ export default defineEventHandler(async (event) => {
       }
 
       try {
-        console.log(output);
         const books: Book[] = JSON.parse(output.trim());
+
         if (!Array.isArray(books)) {
           return reject({
             statusCode: 500,
             message: "Invalid output format",
           });
         }
-
         resolve({ books });
       } catch (err) {
         console.error(`Error parsing json: ${err}`);

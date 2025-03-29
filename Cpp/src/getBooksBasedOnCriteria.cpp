@@ -52,9 +52,8 @@ int main(int argc, const char **argv)
         std::cerr << "Not enough args\n";
         return -1;
     }
-    std::ofstream of("Aaa");
-    of.close();
-    const auto xml = xmlParser::readXML("xml/books.xml");
+
+    const auto xml = xmlParser::readXML("public/xml/books.xml");
 
     const auto &[a, b] = convertXPathStatement(argv[1]);
 

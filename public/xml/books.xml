@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="transform.xsl"?>
 <!DOCTYPE books SYSTEM "books.dtd">
 <books xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="books.xsd">
     <book>
@@ -13,6 +14,20 @@
         </theme2>
         <readingLvl>
             Intermediate
+        </readingLvl>
+    </book>
+    <book>
+        <title>
+            TitluTest
+        </title>
+        <theme1>
+            Fantesy
+        </theme1>
+        <theme2>
+            Mystery
+        </theme2>
+        <readingLvl>
+            Easy
         </readingLvl>
     </book>
 </books>

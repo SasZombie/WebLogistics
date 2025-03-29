@@ -2,7 +2,7 @@
 #include <sstream>
 int main()
 {
-    const auto xml = xmlParser::readXML("xml/users.xml");
+    const auto xml = xmlParser::readXML("public/xml/users.xml");
     const std::string toFind = "user";
     const auto &elems = xml->findAllNodes(toFind);
     std::ostringstream output;

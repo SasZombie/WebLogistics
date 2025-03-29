@@ -15,4 +15,18 @@
             Intermediate
         </readingLvl>
     </user>
+    <user>
+        <name>
+            Zomb
+        </name>
+        <surrname>
+            Zombie
+        </surrname>
+        <preferedTheme>
+            Magic
+        </preferedTheme>
+        <readingLvl>
+            Intermediate
+        </readingLvl>
+    </user>
 </users>

@@ -1,8 +1,9 @@
 import { ref } from "vue";
 import type { Book } from "@/types/book";
 import {
+  extractOperators,
+  filterBooks,
   splitXPathExpression,
-
 } from "~/typescript/xPathEval";
 
 export const useGetOutputBook = () => {
@@ -51,13 +52,16 @@ export const useGetOutputBook = () => {
     }
   };
 
-  const getBookMultiple = async () => {
-    const parts = splitXPathExpression(
-      "/books/book[readingLvl = Intermediate and (theme1 = preferedTheme or theme2 = preferedTheme)]"
-    );
+  const getBookPrefferedThemeAndReading = async (preffredTheme: string, readingLvl: string) => {
+
+    const xPath =
+      `/books/book[readingLvl = ${readingLvl} and (theme1 = ${preffredTheme} or theme2 = ${preffredTheme})]`;
+    const parts = splitXPathExpression(xPath);
+
+    const operators = extractOperators(xPath);
+
 
     let arrays: Book[][] = [];
-    console.log(parts);
     for (let part of parts) {
       try {
         const response = await fetch("/api/getPreferenceBook", {
@@ -78,7 +82,9 @@ export const useGetOutputBook = () => {
       }
     }
 
-    console.log(arrays);
+    const result = filterBooks(arrays, operators);
+
+    console.error(result);
   };
 
   const getBookByReadingLevel = async (readingLevel: string) => {
@@ -104,6 +110,6 @@ export const useGetOutputBook = () => {
     submitFormBook,
     formBodyBook,
     getBookByReadingLevel,
-    getBookMultiple,
+    getBookPrefferedThemeAndReading,
   };
 };

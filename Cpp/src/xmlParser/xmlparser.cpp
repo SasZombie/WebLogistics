@@ -4,10 +4,6 @@
 namespace xmlParser
 {
 
-    // tagName
-    // tagName siAdnorato="BLaLBalBla"
-    // tagNames siAdnorato="BLaLBalBla"
-    // Where, what
     static bool contains(std::string_view str1, std::string_view str2) noexcept
     {
         if (str1 == str2)
@@ -209,6 +205,19 @@ namespace xmlParser
         else
         {
             input.seekg(0);
+        }
+
+        std::getline(input, line);
+        // XML version
+        if (line.size() > 2 && line[1] == '?' && line.back() == '>')
+        {
+            tokens.push_back({TokenType::META, line});
+
+            currsor = input.tellg();
+        }
+        else
+        {
+            input.seekg(currsor);
         }
 
         std::getline(input, line);

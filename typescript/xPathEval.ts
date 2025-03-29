@@ -1,5 +1,5 @@
 import { boolean, evaluate } from "mathjs";
-
+import type { Book } from "~/types/book";
 
 export function splitXPathExpression(expression: string): string[] {
   const match = expression.match(/\/books\/book\[(.*?) and \((.*?)\)\]/);
@@ -7,7 +7,7 @@ export function splitXPathExpression(expression: string): string[] {
     throw new Error("Invalid expression format");
   }
 
-  const baseCondition = match[1]; 
+  const baseCondition = match[1];
   const orConditions = match[2].split(/\sor\s/).map((cond) => cond.trim());
 
   return [
@@ -16,25 +16,35 @@ export function splitXPathExpression(expression: string): string[] {
   ];
 }
 
-function arrayIncludes(arr: string[], value: string): boolean {
-    return arr.includes(value);
+export function extractOperators(query: string): string[] {
+  const regex = /(and|or|\(|\))/g;
+  const matches = query.match(regex);
+  return matches ? matches : [];
 }
 
-function evaluateArrayExpression(expression: string, arrays: string[][], values: string[]): boolean {
-    // Create context based on the arrays
-    const context: { [key: string]: boolean } = {};
+function compareBooks(bookA: Book, bookB: Book): boolean {
+  return (
+    bookA.title === bookB.title &&
+    bookA.theme1 === bookB.theme1 &&
+    bookA.theme2 === bookB.theme2 &&
+    bookA.readingLvl === bookB.readingLvl
+  );
+}
 
-    // Create the context for each array, where we check if an element exists in the array
-    for (let i = 0; i < arrays.length; i++) {
-        const arrName = `arr${i}`;
-        context[arrName] = values.includes(arrays[i][0]); // Example: Check if values exist in each array
+export function filterBooks(bigArr: Book[][], expr: string[]): Book[] {
+  return bigArr[0].filter((book) => {
+    let condition = bigArr[0].some(existingBook => compareBooks(existingBook, book));
+
+    const orConditions = bigArr.slice(1).map(arr => arr.some(existingBook => compareBooks(existingBook, book)));
+
+    if (expr[2] === "or") {
+      condition = condition && orConditions.some(Boolean);
     }
 
-    // Replace array references in the expression with context keys
-    expression = expression.replace(/arr(\d+)/g, (match, p1) => {
-        return `context.arr${p1}`; // Reference the actual context key
-    });
+    if (expr[2] === "and") {
+      condition = condition && orConditions.every(Boolean);
+    }
 
-    // Evaluate the expression using mathjs
-    return evaluate(expression, context);
+    return condition;
+  });
 }
