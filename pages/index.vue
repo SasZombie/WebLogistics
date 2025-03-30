@@ -3,9 +3,7 @@
         <div class="w-1/2 text-left px-4">
             <h2>Books</h2>
             <div v-for="book in booksOutput" :key="book.title">
-                <h3>{{ book.title }}</h3>
-                <h3>{{ book.theme1 }} - {{ book.theme2 }}</h3>
-                <h3>{{ book.readingLvl }}</h3>
+                <h3 @click="goToDetails(book)" class="cursor-pointer">{{ book.title }}</h3>
             </div>
         </div>
 
@@ -13,15 +11,26 @@
             <h2>Users</h2>
             <div v-for="user in usersOutput" :key="user.name">
                 <h3 @click="recomand(user.readingLvl)" class="cursor-pointer">{{ user.name }}</h3>
-                <button @click="getBookMultiple(user.readingLvl, user.preferedTheme)" class="cursor-pointer">Get
+                <button @click="getBookMultiple(user.preferedTheme, user.readingLvl)" class="cursor-pointer">Get
                     Multiple</button>
             </div>
         </div>
 
-        <div v-html="transformedBooks">
-            
-        </div>
+        <div>
 
+            <form @submit.prevent="getBookByThemes">
+                <label for="">Search Theme:</label>
+                <select v-model="bookThemeForm">
+                    <option value="">Choose One</option>
+                    <option value="Beginer">Magic</option>
+                    <option value="Intermediate">Fantasy</option>
+                    <option value="Advanced">Real</option>
+                </select>
+                <button type="submit">
+                    Add Book
+                </button>
+            </form>
+        </div>
     </div>
     <!-- <form @submit.prevent="addBook">
             <div>
@@ -84,19 +93,32 @@
 import { onMounted } from 'vue';
 import { useGetOutputBook } from '@/composables/useGetOutputBook';
 import { useGetOutputUser } from '@/composables/useGetOutputUser';
+import { useXMS } from '@/composables/useXMS';
+import type { Book } from '~/types/book';
 
-const { booksOutput, getAllEntriesBook, submitFormBook, formBodyBook, getBookByReadingLevel, getBookPrefferedThemeAndReading } = useGetOutputBook();
+const { booksOutput, getAllEntriesBook, submitFormBook, formBodyBook, getBookByReadingLevel, getBookPrefferedThemeAndReading, getBookByTheme, bookThemeForm } = useGetOutputBook();
 const { getAllEntriesUser, usersOutput, submitFormUser, formBodyUser } = useGetOutputUser();
+const { applyXSLT, transformedBooks } = useXMS();
+const { router } = useCommon();
+const store = useStore();
+
 
 onMounted(() => {
     getAllEntriesBook();
     getAllEntriesUser();
-    applyXSLT();
-
 })
 
 const recomand = async (readingLvl: string) => {
     await getBookByReadingLevel(readingLvl);
+}
+
+const goToDetails = (book: Book) =>{
+    store.setBook(book);
+    router.push('/details');
+}
+
+const getBookByThemes = async () => {
+    await getBookByTheme(bookThemeForm.value);
 }
 
 const addBook = async () => {
@@ -112,45 +134,5 @@ const addUser = async () => {
 const getBookMultiple = async (preffredTheme: string, readingLvl: string) => {
     await getBookPrefferedThemeAndReading(preffredTheme, readingLvl);
 };
-
-const transformedBooks = ref('');
-const usersOutput1 = [
-    { name: 'Alice', readingLvl: 3, preferedTheme: 'Tech' },
-    { name: 'Bob', readingLvl: 2, preferedTheme: 'Programming' },
-];
-
-
-const applyXSLT = async () => {
-  try {
-    // Fetch XML and XSLT files from the public directory
-    const [xmlResponse, xslResponse] = await Promise.all([
-      fetch('/xml/books.xml'),
-      fetch('/xml/transform.xsl')
-    ]);
-
-    if (!xmlResponse.ok || !xslResponse.ok) {
-      throw new Error('Failed to fetch XML or XSLT');
-    }
-
-    const xmlText = await xmlResponse.text();
-    const xslText = await xslResponse.text();
-
-    // Parse XML and XSLT into DOM objects
-    const parser = new DOMParser();
-    const xmlDoc = parser.parseFromString(xmlText, 'application/xml');
-    const xslDoc = parser.parseFromString(xslText, 'application/xml');
-
-    // Apply XSLT transformation
-    const xsltProcessor = new XSLTProcessor();
-    xsltProcessor.importStylesheet(xslDoc);
-    const resultDocument = xsltProcessor.transformToFragment(xmlDoc, document);
-
-    // Convert transformed result to a string
-    transformedBooks.value = new XMLSerializer().serializeToString(resultDocument);
-  } catch (error) {
-    console.error('XSLT Processing Error:', error);
-  }
-};
-
 
 </script>

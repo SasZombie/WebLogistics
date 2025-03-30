@@ -1,48 +1,6 @@
 #include "xmlParser/xmlparser.hpp"
+#include "utils.hpp"
 #include <sstream>
-
-static std::tuple<std::string, std::string> convertXPathStatement(std::string_view xPath) noexcept
-{
-    size_t queryLen = xPath.size();
-    size_t index = 0;
-    std::string fieldName;
-    std::string fieldExpectedValue;
-
-    while (index < queryLen)
-    {
-        while (xPath[index] != '[')
-        {
-            ++index;
-        }
-
-        ++index;
-
-        while (xPath[index] != ' ')
-        {
-            fieldName += xPath[index];
-            ++index;
-        }
-
-        while (xPath[index] != '=')
-        {
-            ++index;
-        }
-        ++index;
-
-        while (xPath[index] == ' ')
-        {
-            ++index;
-        }
-
-        while (xPath[index] != ']' || xPath[index] == ' ')
-        {
-            fieldExpectedValue += xPath[index];
-            ++index;
-        }
-        ++index;
-    }
-    return std::make_tuple(fieldName, fieldExpectedValue);
-}
 
 int main(int argc, const char **argv)
 {
@@ -89,7 +47,7 @@ int main(int argc, const char **argv)
 
             break;
         }
-
+        case xmlParser::TokenType::META:
         case xmlParser::TokenType::TEXT:
         {
             output << "\"" << node->tagName << "\",\n";

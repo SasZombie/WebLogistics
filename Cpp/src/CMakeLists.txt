@@ -9,14 +9,22 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Wformat-nonliteral -Wcast
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ../bin)
 
 add_library(xmlparser SHARED xmlParser/xmlparser.cpp)
+add_library(utils SHARED utils.cpp)
 
 add_executable(getAllEntriesBook getAllEntriesBook.cpp)
-target_link_libraries(getAllEntriesBook xmlparser)
+target_link_libraries(getAllEntriesBook xmlparser utils)
+
 add_executable(addEntryInBook addEntryInBook.cpp)
-target_link_libraries(addEntryInBook xmlparser)
+target_link_libraries(addEntryInBook xmlparser utils)
+
 add_executable(addEntryInUser addEntryInUser.cpp)
-target_link_libraries(addEntryInUser xmlparser)
+target_link_libraries(addEntryInUser xmlparser utils)
+
 add_executable(getAllEntriesUser getAllEntriesUser.cpp)
-target_link_libraries(getAllEntriesUser xmlparser)
+target_link_libraries(getAllEntriesUser xmlparser utils)
+
 add_executable(getBooksBasedOnCriteria getBooksBasedOnCriteria.cpp)
-target_link_libraries(getBooksBasedOnCriteria xmlparser)
+target_link_libraries(getBooksBasedOnCriteria xmlparser utils)
+
+add_executable(getBookField getBookField.cpp)
+target_link_libraries(getBookField xmlparser utils)

@@ -14,7 +14,7 @@ int main(const int argc, const char **argv)
     std::fstream file("public/xml/books.xml", std::ios::in | std::ios::out | std::ios::binary);
     if (!file.is_open())
     {
-        std::cerr << "Error opening file!" << std::endl;
+        std::cerr << "Error opening file!" << '\n';
         return 1;
     }
 

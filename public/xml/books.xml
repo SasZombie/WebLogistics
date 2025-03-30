@@ -10,13 +10,27 @@
             Fantesy
         </theme1>
         <theme2>
-            Mystery
+            Magic
         </theme2>
         <readingLvl>
             Intermediate
         </readingLvl>
     </book>
     <book>
+        <title>
+            TitluTest
+        </title>
+        <theme1>
+            Fantesy
+        </theme1>
+        <theme2>
+            Magic
+        </theme2>
+        <readingLvl>
+            Hard
+        </readingLvl>
+    </book>
+     <book>
         <title>
             TitluTest
         </title>

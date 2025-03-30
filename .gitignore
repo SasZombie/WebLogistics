@@ -29,3 +29,5 @@ CMakeCache.txt
 Cpp/bin/*
 Cpp/src/Makefile
 .vscode
+
+*.so

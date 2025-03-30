@@ -1,9 +1,10 @@
-<script setup>
+<script setup lang="ts">
 import { ref, onMounted } from 'vue';
+import type { User } from '~/types/user';
 
 const transformedBooks = ref(''); // Stores transformed HTML output
 
-const applyXSLT = async () => {
+const applyXSLT = async (user: User | null) => {
   try {
     // Fetch XML and XSLT files from the public directory
     const [xmlResponse, xslResponse] = await Promise.all([
@@ -26,6 +27,11 @@ const applyXSLT = async () => {
     // Apply XSLT transformation
     const xsltProcessor = new XSLTProcessor();
     xsltProcessor.importStylesheet(xslDoc);
+
+    const userReadinLevel = user ? user.readingLvl : "None Selected";
+
+    xsltProcessor.setParameter(null, 'userReadingLevel', userReadinLevel);
+    xsltProcessor.setParameter(null, 'selection', 'book');
     const resultDocument = xsltProcessor.transformToFragment(xmlDoc, document);
 
     // Convert transformed result to a string
@@ -35,9 +41,16 @@ const applyXSLT = async () => {
   }
 };
 
+const utili: User = {
+  name: "sas",
+  surrname: "boss",
+  preferedTheme: "Mystery",
+  readingLvl: "Easy"
+}
+
 // Ensure it runs only on the client-side
 onMounted(() => {
-  applyXSLT();
+  applyXSLT(utili);
 });
 </script>
 
@@ -46,5 +59,6 @@ onMounted(() => {
     <h2>Books List (Transformed with XSLT)</h2>
     <!-- Render transformed content -->
     <div v-html="transformedBooks"></div>
+    <p> Bla Bla Bla </p>
   </div>
 </template>

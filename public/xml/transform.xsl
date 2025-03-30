@@ -6,6 +6,7 @@
 
     <!-- User's reading level (This should be passed dynamically) -->
     <xsl:param name="userReadingLevel" select="'Intermediate'" />
+    <xsl:param name="selection" select="book" />
 
     <!-- Template for the root -->
     <xsl:template match="/">
@@ -20,7 +21,7 @@
                 <h2>Book List</h2>
                 <ul>
                     <!-- Loop through books -->
-                    <xsl:apply-templates select="books/book" />
+                    <xsl:apply-templates select="books/$selection" />
                 </ul>
             </body>
         </html>
