@@ -12,6 +12,10 @@ import {
 export const useGetOutputBook = () => {
   const booksOutput = ref<Book[]>([]);
   const bookThemeForm = ref("");
+  const bookTitleQuerry = ref("");
+  const bookTheme1Querry = ref("");
+  const bookTheme2Querry = ref("");
+  const bookReadingLvlQuerry = ref("");
   const booksOutputRecomandations = ref<Book[]>([]);
   const formBodyBook = ref<Book>({
     title: "",
@@ -146,8 +150,9 @@ export const useGetOutputBook = () => {
     const result = evaluateBookExpression(arrays, combinedIndicies);
     console.error(result);
   };
-  const getBookTitle = async (bookName: string) => {
-    const xPath = `/books/book[title = ${bookName}]/title`;
+
+  const getBookField = async (bookName: string, field: string) => {
+    const xPath = `/books/book[title = ${bookName}]/${field}`;
 
     try {
       const response = await fetch("/api/getBookField", {
@@ -160,7 +165,27 @@ export const useGetOutputBook = () => {
         }),
       });
       const data = await response.json();
-      console.log(data);
+
+      switch (field) {
+        case "title":
+          bookTitleQuerry.value = data.bookField;
+          break;
+
+        case "theme1":
+          bookTheme1Querry.value = data.bookField;
+          break;
+
+        case "theme2":
+          bookTheme2Querry.value = data.bookField;
+          break;
+
+        case "readingLvl":
+          bookReadingLvlQuerry.value = data.bookField;
+          break;
+
+        default:
+          break;
+      }
     } catch (error) {
       console.error(error);
     }
@@ -176,6 +201,10 @@ export const useGetOutputBook = () => {
     getBookPrefferedThemeAndReading,
     getBookByTheme,
     bookThemeForm,
-    getBookTitle
+    getBookField,
+    bookTitleQuerry,
+    bookTheme1Querry,
+    bookTheme2Querry,
+    bookReadingLvlQuerry
   };
 };
