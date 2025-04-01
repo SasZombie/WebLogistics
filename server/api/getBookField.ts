@@ -5,7 +5,6 @@ import { defineEventHandler } from "h3";
 export default defineEventHandler(async (event) => {
   const body = await readBody(event);
   const { xPath } = body;
-    console.log(xPath);
   return new Promise<{ bookField: string }>((resolve, reject) => {
     const cppExec = "./Cpp/bin/getBookField";
 

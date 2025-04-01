@@ -12,10 +12,15 @@ import {
 export const useGetOutputBook = () => {
   const booksOutput = ref<Book[]>([]);
   const bookThemeForm = ref("");
-  const bookTitleQuerry = ref("");
-  const bookTheme1Querry = ref("");
-  const bookTheme2Querry = ref("");
-  const bookReadingLvlQuerry = ref("");
+
+
+  const bookQuerry = ref([
+    { label: "Title", content: "Book Title Content", show: false, queryValue: "title" },
+    { label: "Theme 1", content: "Book Theme 1 Content", show: false, queryValue: "theme1" },
+    { label: "Theme 2", content: "Book Theme 2 Content", show: false, queryValue: "theme2" },
+    { label: "Reading Level", content: "Book Reading Level Content", show: false, queryValue: "readingLvl" },
+  ]);
+
   const booksOutputRecomandations = ref<Book[]>([]);
   const formBodyBook = ref<Book>({
     title: "",
@@ -151,8 +156,8 @@ export const useGetOutputBook = () => {
     console.error(result);
   };
 
-  const getBookField = async (bookName: string, field: string) => {
-    const xPath = `/books/book[title = ${bookName}]/${field}`;
+  const getBookField = async (bookName: string, index: number) => {
+    const xPath = `/books/book[title = ${bookName}]/${bookQuerry.value[index].queryValue}`;
 
     try {
       const response = await fetch("/api/getBookField", {
@@ -165,33 +170,13 @@ export const useGetOutputBook = () => {
         }),
       });
       const data = await response.json();
+      bookQuerry.value[index].content = data.bookField;
 
-      switch (field) {
-        case "title":
-          bookTitleQuerry.value = data.bookField;
-          break;
-
-        case "theme1":
-          bookTheme1Querry.value = data.bookField;
-          break;
-
-        case "theme2":
-          bookTheme2Querry.value = data.bookField;
-          break;
-
-        case "readingLvl":
-          bookReadingLvlQuerry.value = data.bookField;
-          break;
-
-        default:
-          break;
-      }
     } catch (error) {
       console.error(error);
     }
   };
-  // const xPath =
-  // `/books/book[theme1 = ${preffredTheme} or theme2 = ${preffredTheme}]`;
+  
   return {
     booksOutput,
     getAllEntriesBook,
@@ -202,9 +187,6 @@ export const useGetOutputBook = () => {
     getBookByTheme,
     bookThemeForm,
     getBookField,
-    bookTitleQuerry,
-    bookTheme1Querry,
-    bookTheme2Querry,
-    bookReadingLvlQuerry
+    bookQuerry
   };
 };
