@@ -96,11 +96,10 @@ export const useGetOutputBook = () => {
         console.error(error);
       }
     }
-
     const combinedIndicies = combineIndicies(operators);
 
     const result = evaluateBookExpression(arrays, combinedIndicies);
-    console.error(result);
+
   };
 
   const getBookByReadingLevel = async (readingLevel: string) => {
@@ -115,7 +114,7 @@ export const useGetOutputBook = () => {
         }),
       });
       const data = await response.json();
-      console.log(data.books);
+      booksOutputRecomandations.value = data.books;
     } catch (error) {
       console.error(error);
     }
@@ -187,6 +186,7 @@ export const useGetOutputBook = () => {
     getBookByTheme,
     bookThemeForm,
     getBookField,
-    bookQuerry
+    bookQuerry,
+    booksOutputRecomandations
   };
 };

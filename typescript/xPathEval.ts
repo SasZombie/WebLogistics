@@ -80,7 +80,6 @@ export function combineIndicies(
 
   return combined;
 }
-
 export function evaluateExpressionNumber(
   bigArr: number[][],
   expr: (number | string)[]
