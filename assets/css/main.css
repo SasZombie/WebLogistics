@@ -1,1 +1,14 @@
 @import "tailwindcss";
+
+.buttonCss {
+  @apply bg-teal-500 text-white font-bold rounded;
+}
+
+.onTealTextCss{
+    @apply text-xl text-white font-bold mt-2 text-gray-700 absolute inset-0 flex items-center justify-center;
+
+}
+
+.shadows {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+}

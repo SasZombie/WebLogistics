@@ -10,14 +10,17 @@
   @apply bg-white text-black border-gray-400;
 }
 
-
-.buttonCss{
-   @apply bg-teal-500 text-white font-bold rounded
+.buttonCss {
+  @apply bg-teal-500 text-white font-bold rounded;
 }
-.buttonCss:hover{
-    @apply bg-gray-900
+.buttonCss:hover {
+  @apply bg-gray-900;
 }
 
-.center{
-    @apply flex items-center justify-center
+.center {
+  @apply flex items-center justify-center;
+}
+
+.textCss {
+  @apply text-xl text-white font-bold mt-2 text-gray-700 dust-in absolute inset-0 flex items-center justify-center;
 }
