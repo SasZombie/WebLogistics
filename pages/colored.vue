@@ -5,8 +5,6 @@ import type { User } from '~/types/user';
 const transformedBooks = ref(''); 
 
 const applyXSLT = async (user: User | null) => {
-  if (process.server) return; // Prevent execution on server
-
   try {
     const [xmlResponse, xslResponse] = await Promise.all([
       fetch('/xml/books.xml'),
