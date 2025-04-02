@@ -1,4 +1,3 @@
-import { boolean, compare, evaluate, string } from "mathjs";
 import type { Book } from "~/types/book";
 
 export function splitXPathExpression(expression: string): string[] {
