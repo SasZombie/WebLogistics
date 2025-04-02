@@ -49,7 +49,7 @@ const utili: User = {
 }
 
 onMounted(() => {
-  if (process.client) applyXSLT(utili);
+  applyXSLT(utili);
 });
 
 </script>
