@@ -4,7 +4,7 @@
             <h2 class="text-xl font-semibold mb-4">Books</h2>
             <div v-for="book in booksOutput" :key="book.title" class="mb-2">
                 <h3 @click="goToDetails(book)" class="cursor-pointer text-lg hover:underline p-2" :class="{
-                    'circular-gradient-border': isBookRecomanded(book)
+                    'circular-gradient-border': isBookRecomanded(book) 
                 }">
                     {{ book.title }}
                 </h3>
@@ -27,37 +27,6 @@
         </div>
     </div>
 </template>
-
-<style scoped>
-@keyframes gradientRotation {
-    0% {
-        border-image-source: linear-gradient(45deg, pink, rgb(212, 35, 65), rgb(201, 10, 159));
-    }
-
-    25% {
-        border-image-source: linear-gradient(135deg, pink, rgb(212, 35, 65), rgb(201, 10, 159));
-    }
-
-    50% {
-        border-image-source: linear-gradient(225deg, pink, rgb(212, 35, 65), rgb(201, 10, 159));
-    }
-
-    75% {
-        border-image-source: linear-gradient(315deg, pink, rgb(212, 35, 65), rgb(201, 10, 159));
-    }
-
-    100% {
-        border-image-source: linear-gradient(45deg, pink, rgb(212, 35, 65), rgb(201, 10, 159));
-    }
-}
-
-.circular-gradient-border {
-    border: 4px solid transparent;
-    border-radius: 8px;
-    border-image: linear-gradient(45deg, red, yellow, green) 1;
-    animation: gradientRotation 3s infinite linear;
-}
-</style>
 
 <!-- What must be done:
     Clicking on titles => details 
