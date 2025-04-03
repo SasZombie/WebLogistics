@@ -1,16 +1,19 @@
 <template>
     <div class="flex justify-between space-x-8 items-start">
         <div class="islandBookUser islandColorCss">
-            <h2 class="text-xl font-semibold mb-4">Books</h2>
+            <h2 ref="" class="text-xl font-semibold mb-4">Books</h2>
             <div v-for="book in booksOutput" :key="book.title" class="mb-2">
-                <h3 @click="goToDetails(book)" class="cursor-pointer text-lg hover:underline p-2" :class="{
-                    'circular-gradient-border': isBookRecomanded(book)
-                }">
+                <h3 :ref="(e) => coordinatesExtra?.push(e as HTMLElement)" @click="goToDetails(book)"
+                    class="cursor-pointer text-lg hover:underline p-2" :class="{
+                        'circular-gradient-border': isBookRecomanded(book)
+                    }">
                     {{ book.title }}
                 </h3>
             </div>
         </div>
-
+        <button @click="getAllPos">
+            clikc
+        </button>
         <div class="islandBookUser islandColorCss">
             <h2 class="text-xl font-semibold mb-4">Users</h2>
             <div v-for="user in usersOutput" :key="user.name" class="mb-4">
@@ -79,12 +82,32 @@ const { getAllEntriesUser, usersOutput, submitFormUser, formBodyUser } = useGetO
 const { applyXSLT, transformedBooks } = useXMS();
 const { router } = useCommon();
 const store = useStore();
+const booksHeading = ref<HTMLElement>();
+
+const coordinates = ref({ x: 0, y: 0 });
+interface coords {
+    x: number,
+    y: number
+}
+const coordinatesExtra = ref<(HTMLElement | null)[]>();
 
 
 onMounted(() => {
     getAllEntriesBook();
     getAllEntriesUser();
+
+    if (booksHeading.value) {
+        const rect = booksHeading.value.getBoundingClientRect();
+        coordinates.value = { x: rect.left, y: rect.top };
+    }
+
+    console.log(coordinates.value)
 })
+
+const getAllPos = () => {
+    console.log(coordinatesExtra.value?.map((elem) => elem));
+}
+
 
 const getByReadingLvl = async (readingLvl: string) => {
     await getBookByReadingLevel(readingLvl);

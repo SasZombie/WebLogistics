@@ -13,6 +13,8 @@
     "@pinia/nuxt": "^0.10.1",
     "@tailwindcss/vite": "^4.0.17",
     "framer": "^2.4.1",
+    "gasp": "^0.0.2",
+    "gsap": "^3.12.7",
     "mathjs": "^14.4.0",
     "nuxt": "^3.16.1",
     "pinia": "^3.0.1",
