@@ -19,7 +19,7 @@ int main(const int argc, const char **argv)
     }
 
     file.seekg(0, std::ios::end); 
-    long fileSize = file.tellg();
+    const long fileSize = file.tellg();
 
     long pos = fileSize - 1;
     char ch;

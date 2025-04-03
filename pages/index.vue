@@ -4,10 +4,18 @@
             <h2 class="text-xl font-semibold mb-4">Books</h2>
             <div v-for="book in booksOutput" :key="book.title" class="mb-2">
                 <h3 @click="goToDetails(book)" class="cursor-pointer text-lg hover:underline p-2" :class="{
-                    'circular-gradient-border': isBookRecomanded(book) 
+                    'circular-gradient-border': recomandedBooks.has(book.title)
                 }">
                     {{ book.title }}
                 </h3>
+            </div>
+            <div v-for="coord in points">
+                <div class="absolute bg-black h-[2px] origin-left" :style="{
+                    width: `${distance(coord, coordinatesUser)}px`,
+                    left: `${coord.x}px`,
+                    top: `${coord.y}px`,
+                    transform: `rotate(${angle(coord, coordinatesUser)}deg)`
+                }"></div>
             </div>
         </div>
 
@@ -50,19 +58,44 @@ const { router } = useCommon();
 const store = useStore();
 
 
-onMounted(() => {
-    getAllEntriesBook();
-    getAllEntriesUser();
+onMounted(async () => {
+    await getAllEntriesBook();
+    await getAllEntriesUser();
 })
 
+interface coords {
+    x: number,
+    y: number
+}
+
+const coordinatesUser = ref({ x: 300, y: 300 });
+const points = ref<coords[]>([])
+
+
+
 const getByReadingLvl = async (readingLvl: string) => {
+
+    points.value.length = 0;
     await getBookByReadingLevel(readingLvl);
+    await uppdateAll();
 }
 
-const isBookRecomanded = (book: Book): Boolean => {
+const uppdateAll = async () => {
 
-    return booksOutputRecomandations.value.some((b) => b.title === book.title);
+    await nextTick();
+
+    const highlightedBooks = document.querySelectorAll<HTMLElement>(".circular-gradient-border");
+
+    highlightedBooks.forEach((el) => {
+        const rect = el.getBoundingClientRect();
+        points.value.push({ x: rect.x, y: rect.y });
+    });
 }
+
+
+const recomandedBooks = computed(() => {
+    return new Set(booksOutputRecomandations.value.map(b => b.title));
+})
 
 const goToDetails = (book: Book) => {
     store.setBook(book);
@@ -87,5 +120,13 @@ const getBookMultiple = async (preffredTheme: string, readingLvl: string) => {
     await getBookPrefferedThemeAndReading(preffredTheme, readingLvl);
 };
 
+
+const distance = (point1: coords, point2: coords) => {
+    return Math.sqrt(Math.pow(point2.x - point1.x, 2) + Math.pow(point2.y - point1.y, 2));
+};
+
+const angle = (point1: coords, point2: coords) => {
+    return Math.atan2(point2.y - point1.y, point2.x - point1.x) * (180 / Math.PI);
+};
 
 </script>
