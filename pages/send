@@ -1,0 +1,60 @@
+<template>
+    <div class="flex justify-between space-x-8 items-start">
+        <div class="islandBookUser islandColorCss">
+            <div v-for="coord in points" :key="`${coord.x}-${coord.y}`">
+                <div class="absolute bg-black h-[2px] origin-left transition-all duration-500 ease-in-out" :style="{
+                    width: animatedLines[`${coord.x}-${coord.y}`] ? `${distance(coordinatesUser, coord)}px` : '0px',
+                    height: '3px',
+                    left: `${coordinatesUser.x}px`,
+                    top: `${coordinatesUser.y}px`,
+                    transform: `rotate(${angle(coordinatesUser, coord)}deg)`
+                }"></div>
+            </div>
+        </div>
+
+    </div>
+</template>
+
+
+
+<script lang="ts" setup>
+
+
+const getByReadingLvl = async (user: User) => {
+
+    points.value.length = 0;
+    animatedLines.value = {}
+
+    await getBookByReadingLevel(user.readingLvl);
+    selectedUser.value = user;
+
+    await uppdateAll();
+}
+
+const uppdateAll = async () => {
+
+    await nextTick();
+
+    const highlightedBooks = document.querySelectorAll<HTMLElement>(".circular-gradient-border");
+    const highlightedUser = document.querySelector<HTMLElement>(".circular-gradient-border2");
+    if (highlightedUser) {
+        const rect = highlightedUser.getBoundingClientRect();
+        coordinatesUser.value = { x: rect.x, y: rect.y }
+    }
+
+    await nextTick();
+
+    highlightedBooks.forEach((el, index) => {
+        const rect = el.getBoundingClientRect();
+        const point: coords = { x: rect.x + 185, y: rect.y - 50 };
+        points.value.push(point);
+
+    });
+
+    setTimeout(() => {
+        points.value.forEach((point) => {
+            animatedLines.value[`${point.x}-${point.y}`] = true;
+        });
+    }, 100); 
+}
+</script>

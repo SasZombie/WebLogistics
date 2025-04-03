@@ -9,12 +9,13 @@
                     {{ book.title }}
                 </h3>
             </div>
-            <div v-for="coord in points">
-                <div class="absolute bg-black h-[2px] origin-left" :style="{
-                    width: `${distance(coord, coordinatesUser)}px`,
-                    left: `${coord.x}px`,
-                    top: `${coord.y}px`,
-                    transform: `rotate(${angle(coord, coordinatesUser)}deg)`
+            <div v-for="coord in points" :key="`${coord.x}-${coord.y}`">
+                <div class="absolute bg-black h-[2px] origin-left transition-all duration-500 ease-in-out" :style="{
+                    width: animatedLines[`${coord.x}-${coord.y}`] ? `${distance(coordinatesUser, coord)}px` : '0px',
+                    height: '3px',
+                    left: `${coordinatesUser.x}px`,
+                    top: `${coordinatesUser.y}px`,
+                    transform: `rotate(${angle(coordinatesUser, coord)}deg)`
                 }"></div>
             </div>
         </div>
@@ -73,17 +74,21 @@ interface coords {
 const coordinatesUser = ref<coords>({ x: 300, y: 300 });
 const selectedUser = ref<User | null>();
 const points = ref<coords[]>([])
+const animatedLines = ref<Record<string, boolean>>({});
 
 
 
 const getByReadingLvl = async (user: User) => {
 
     points.value.length = 0;
+    animatedLines.value = {}
+
     await getBookByReadingLevel(user.readingLvl);
     selectedUser.value = user;
 
     await uppdateAll();
 }
+
 
 const uppdateAll = async () => {
 
@@ -93,13 +98,23 @@ const uppdateAll = async () => {
     const highlightedUser = document.querySelector<HTMLElement>(".circular-gradient-border2");
     if (highlightedUser) {
         const rect = highlightedUser.getBoundingClientRect();
-        coordinatesUser.value = {x: rect.x, y: rect.y}
+        coordinatesUser.value = { x: rect.x, y: rect.y }
     }
 
-    highlightedBooks.forEach((el) => {
+    await nextTick();
+
+    highlightedBooks.forEach((el, index) => {
         const rect = el.getBoundingClientRect();
-        points.value.push({ x: rect.x, y: rect.y });
+        const point: coords = { x: rect.x + 185, y: rect.y - 50 };
+        points.value.push(point);
+
     });
+
+    setTimeout(() => {
+        points.value.forEach((point) => {
+            animatedLines.value[`${point.x}-${point.y}`] = true;
+        });
+    }, 100);
 }
 
 
