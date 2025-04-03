@@ -22,8 +22,9 @@
         <div class="islandBookUser islandColorCss">
             <h2 class="text-xl font-semibold mb-4">Users</h2>
             <div v-for="user in usersOutput" :key="user.name" class="mb-4">
-                <h3 class="text-lg">{{ user.name }} {{ user.surrname }}</h3>
-                <button @click="getByReadingLvl(user.readingLvl)"
+                <h3 class="text-lg" :class="userClass[user.name]">
+                    {{ user.name }} {{ user.surrname }}</h3>
+                <button @click="getByReadingLvl(user)"
                     class="mt-2 px-4 py-1 bg-blue-500 text-white rounded-lg hover:bg-blue-600 cursor-pointer">
                     Reading Level
                 </button>
@@ -50,6 +51,7 @@ import { useGetOutputBook } from '@/composables/useGetOutputBook';
 import { useGetOutputUser } from '@/composables/useGetOutputUser';
 import { useXMS } from '@/composables/useXMS';
 import type { Book } from '~/types/book';
+import type { User } from '~/types/user';
 
 const { booksOutput, getAllEntriesBook, submitFormBook, formBodyBook, getBookByReadingLevel, getBookPrefferedThemeAndReading, getBookByTheme, bookThemeForm, booksOutputRecomandations } = useGetOutputBook();
 const { getAllEntriesUser, usersOutput, submitFormUser, formBodyUser } = useGetOutputUser();
@@ -68,15 +70,18 @@ interface coords {
     y: number
 }
 
-const coordinatesUser = ref({ x: 300, y: 300 });
+const coordinatesUser = ref<coords>({ x: 300, y: 300 });
+const selectedUser = ref<User | null>();
 const points = ref<coords[]>([])
 
 
 
-const getByReadingLvl = async (readingLvl: string) => {
+const getByReadingLvl = async (user: User) => {
 
     points.value.length = 0;
-    await getBookByReadingLevel(readingLvl);
+    await getBookByReadingLevel(user.readingLvl);
+    selectedUser.value = user;
+
     await uppdateAll();
 }
 
@@ -85,6 +90,11 @@ const uppdateAll = async () => {
     await nextTick();
 
     const highlightedBooks = document.querySelectorAll<HTMLElement>(".circular-gradient-border");
+    const highlightedUser = document.querySelector<HTMLElement>(".circular-gradient-border2");
+    if (highlightedUser) {
+        const rect = highlightedUser.getBoundingClientRect();
+        coordinatesUser.value = {x: rect.x, y: rect.y}
+    }
 
     highlightedBooks.forEach((el) => {
         const rect = el.getBoundingClientRect();
@@ -95,6 +105,20 @@ const uppdateAll = async () => {
 
 const recomandedBooks = computed(() => {
     return new Set(booksOutputRecomandations.value.map(b => b.title));
+})
+
+const selectUser = (user: User): Boolean => {
+    console.log("Select User")
+    return (user === selectedUser.value)
+}
+
+const userClass = computed(() => {
+    const classes: Record<string, string> = {};
+    usersOutput.value.forEach((user) => {
+        classes[user.name] = selectUser(user) ? 'circular-gradient-border2' : '';
+    })
+
+    return classes;
 })
 
 const goToDetails = (book: Book) => {

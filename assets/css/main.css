@@ -115,6 +115,13 @@
     animation: gradientRotation 2s infinite linear;
 }
 
+.circular-gradient-border2 {
+    border: 4px solid transparent;
+    border-radius: 8px;
+    border-image: linear-gradient(45deg, red, yellow, green) 1;
+    animation: gradientRotation 2s infinite linear;
+}
+
 @keyframes dust-out {
     0% {
         opacity: 1;

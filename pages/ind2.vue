@@ -132,12 +132,6 @@ const uppdateAll = async () => {
     });
 }
 
-// const isBookRecomanded = (book: Book): Boolean => {
-
-//     console.log("Is book recomandded")
-
-//     return booksOutputRecomandations.value.some((b) => b.title === book.title);
-// }
 
 const recomandedBooks = computed(() => {
     return new Set(booksOutputRecomandations.value.map(b => b.title));
