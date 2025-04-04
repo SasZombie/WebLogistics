@@ -1,6 +1,6 @@
 <template>
-    <div class="flex justify-between space-x-8 items-start">
-        <div class="islandBookUser islandColorCss">
+    <div class="flex justify-between items-start">
+        <div class="islandBookUser islandColorCss" id="bookIsland">
             <h2 class="text-xl font-semibold mb-4">Books</h2>
             <div v-for="book in booksOutput" :key="book.title" class="mb-2">
                 <h3 @click="goToDetails(book)" class="cursor-pointer text-lg hover:underline p-2" :class="{
@@ -9,34 +9,24 @@
                     {{ book.title }}
                 </h3>
             </div>
-            <!-- <svg class="absolute w-full h-full" :viewBox="`0 0 ${svgWidth} ${svgHeight}`">
-                <g>
-                    <line v-for="coord in points" :key="`${coord.x}-${coord.y}`" :x1="coordinatesUser.x"
-                        :y1="coordinatesUser.y" :x2="coord.x" :y2="coord.y" stroke="black" stroke-width="10"
-                        :stroke-dasharray="animatedLines[`${coord.x}-${coord.y}`] ? 'none' : '4,2'"
-                        :stroke-linecap="'round'" :style="{
-                            transition: 'all 0.5s ease-in-out',
-                            strokeDashoffset: animatedLines[`${coord.x}-${coord.y}`] ? '0' : '4',
-                        }" />
-                </g>
-            </svg> -->
-            <div>
-
-                <div v-for="coord in points" :key="`${coord.x}-${coord.y}`">
-                    <div class="line-animate" :class="{
-                        'line-animated': animatedLines[`${coord.x}-${coord.y}`]
-                    }" :style="{
-                    left: `${coordinatesUser.x}px`,
-                    top: `${coordinatesUser.y}px`,
-                    transform: `rotate(${angle(coordinatesUser, coord)}deg)`,
-                    '--line-width': `${distance(coordinatesUser, coord)}px`
-                }"></div>
-                </div>
-            </div>
-
         </div>
 
-        <div class="islandBookUser islandColorCss">
+        <div class="w-full">
+            <svg class="w-full" :style="{ height: svgHeight + 'px' }">
+                <defs>
+                    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto"
+                        markerUnits="strokeWidth">
+                        <polygon points="0 0, 10 3.5, 0 7" fill="blue" />
+                    </marker>
+                </defs>
+
+                <path v-for="(path, index) in paths" :key="index" ref="pathRefs" :d="path" stroke="blue"
+                    stroke-width="3" fill="transparent" marker-end="url(#arrowhead)">
+                </path>
+            </svg>
+        </div>
+
+        <div class="islandBookUser islandColorCss" id="userIsland">
             <h2 class="text-xl font-semibold mb-4">Users</h2>
             <div v-for="user in usersOutput" :key="user.name" class="mb-4">
                 <h3 class="text-lg" :class="userClass[user.name]">
@@ -53,19 +43,6 @@
         </div>
     </div>
 </template>
-<style scoped>
-.line-animate {
-  position: absolute;
-  background-color: black;
-  height: 3px;
-  width: 0;
-  transition: width 0.5s ease-in-out;
-}
-
-.line-animate.line-animated {
-  width: var(--line-width);
-}
-</style>
 <!-- What must be done:
     Clicking on titles => details 
     - Get By Reading Level              (())
@@ -88,15 +65,96 @@ const { applyXSLT, transformedBooks } = useXMS();
 const { router } = useCommon();
 const store = useStore();
 
+const pathLengths = ref<number[]>([]);
+const pathRefs = ref<SVGPathElement[]>([]);
 
-const animatedLines = ref<Record<string, boolean>>({});
-const svgWidth = 1000; // Adjust based on your layout
-const svgHeight = 500; // Adjust based on your layout
+const svgHeight = ref(0);
 
+
+interface Point {
+    x: number,
+    y: number
+}
+
+const getBezierPath = (x1: number, y1: number, x2: number, y2: number) => {
+  const shouldLoop = Math.random() < 0.4; 
+  
+  const midX = (x1 + x2) / 2;
+  const midY = (y1 + y2) / 2;
+
+  if (shouldLoop) {
+    const loopRadius = 40; 
+
+    const control1 = { x: midX - loopRadius, y: midY - loopRadius };
+    const control2 = { x: midX + loopRadius, y: midY - 2 * loopRadius };
+    const control3 = { x: midX + loopRadius, y: midY + 2 * loopRadius };
+    const control4 = { x: midX - loopRadius, y: midY + loopRadius };
+
+    return `M${x1},${y1} 
+            C${(x1 + midX) / 2},${midY} ${(x1 + midX) / 2},${y1} ${midX},${midY}
+            C${control1.x},${control1.y} ${control2.x},${control2.y} ${midX},${midY - loopRadius}
+            C${control3.x},${control3.y} ${control4.x},${control4.y} ${midX},${midY}
+            C${(midX + x2) / 2},${y2} ${(midX + x2) / 2},${midY} ${x2},${y2}`;
+  }
+
+  const control1 = { x: (x1 + x2) / 2 + 80, y: y1 - 100 };
+  const control2 = { x: (x1 + x2) / 2 - 80, y: y2 + 100 };
+
+  return `M${x1},${y1} C${control1.x},${control1.y} ${control2.x},${control2.y} ${x2},${y2}`;
+};
+
+
+const paths = computed(() => points.value.map((point: Point) =>
+    getBezierPath(coordinatesUser.value.x, coordinatesUser.value.y, point.x, point.y)));
+
+
+const updatePathLengths = () => {
+    nextTick(() => {
+        pathLengths.value = pathRefs.value.map((path) => path?.getTotalLength() || 0);
+        pathRefs.value.forEach((path, index) => {
+            path.setAttribute('stroke-dasharray', `${pathLengths.value[index]}`);
+            path.setAttribute('stroke-dashoffset', `${pathLengths.value[index]}`);
+        });
+    });
+};
+
+const restartAnimation = () => {
+    pathRefs.value.forEach((path, index) => {
+        const length = pathLengths.value[index];
+
+        path.style.transition = 'none';
+        path.setAttribute('stroke-dashoffset', `${length}`);
+
+        path.getBoundingClientRect(); 
+
+
+        requestAnimationFrame(() => {
+            path.style.transition = 'stroke-dashoffset 0.85s ease-in-out';
+            path.setAttribute('stroke-dashoffset', '0');
+        });
+    });
+};
+
+const uppdateSvg = () => {
+    const elemBooks = document.getElementById('bookIsland');
+    const elemUsers = document.getElementById('userIsland');
+
+    if (elemBooks && elemUsers) {
+        const heightBooks = elemBooks.offsetHeight
+        const heightUsers = elemUsers.offsetHeight
+
+        svgHeight.value = (heightBooks > heightUsers) ? heightBooks : heightUsers;
+    }
+
+    console.log(svgHeight.value)
+}
 
 onMounted(async () => {
     await getAllEntriesBook();
     await getAllEntriesUser();
+    uppdateSvg()
+    updatePathLengths()
+
 })
 
 interface coords {
@@ -108,18 +166,22 @@ const coordinatesUser = ref<coords>({ x: 300, y: 300 });
 const selectedUser = ref<User | null>();
 const points = ref<coords[]>([])
 
-
-
 const getByReadingLvl = async (user: User) => {
 
     points.value.length = 0;
-    animatedLines.value = {}
+    pathLengths.value.length = 0;
+    pathLengths.value = [];
+    pathRefs.value = [];
+
 
     await getBookByReadingLevel(user.readingLvl);
     selectedUser.value = user;
 
     await uppdateAll();
+    updatePathLengths();
+    restartAnimation();
 }
+
 
 const uppdateAll = async () => {
 
@@ -129,23 +191,20 @@ const uppdateAll = async () => {
     const highlightedUser = document.querySelector<HTMLElement>(".circular-gradient-border2");
     if (highlightedUser) {
         const rect = highlightedUser.getBoundingClientRect();
-        coordinatesUser.value = { x: rect.x, y: rect.y }
+        coordinatesUser.value = { x: rect.x - 100, y: rect.y }
     }
 
     await nextTick();
 
     highlightedBooks.forEach((el, index) => {
         const rect = el.getBoundingClientRect();
-        const point: coords = { x: rect.x + 185, y: rect.y - 50 };
+        const point: coords = { x: rect.x - 43, y: rect.y - 50 };
         points.value.push(point);
 
     });
 
-    setTimeout(() => {
-        points.value.forEach((point) => {
-            animatedLines.value[`${point.x}-${point.y}`] = true;
-        });
-    }, 100);
+    uppdateSvg();
+
 }
 
 

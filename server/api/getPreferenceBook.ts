@@ -9,6 +9,8 @@ export default defineEventHandler(async (event) => {
   return new Promise<{ books: Book[] }>((resolve, reject) => {
     const cppExec = "./Cpp/bin/getBooksBasedOnCriteria";
 
+    console.log(xPath)
+
     const child = spawn(cppExec, [xPath]);
 
     let output = "";

@@ -17,7 +17,9 @@
             </head>
             <body>
                 <center>
-                <strong><h1 style="font-size: 50px">Book List</h1></strong>
+                    <strong>
+                        <h1 style="font-size: 50px">Book List</h1>
+                    </strong>
                     <ul>
                         <xsl:apply-templates select="books/book" />
                     </ul>
@@ -39,14 +41,9 @@
 
             <strong>
                 <xsl:value-of select="normalize-space(title)" />
-            </strong> 
-            (            <xsl:value-of select="normalize-space(theme1)" />
- - 
-            <xsl:value-of select="normalize-space(theme2)" />
-)
-            [            <xsl:value-of select="$bookLevel" />
-]
-        </li>
+            </strong> ( <xsl:value-of
+                select="normalize-space(theme1)" /> - <xsl:value-of select="normalize-space(theme2)" />
+        ) [ <xsl:value-of select="$bookLevel" /> ] </li>
     </xsl:template>
 
 </xsl:stylesheet>

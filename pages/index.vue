@@ -1,6 +1,27 @@
 <template>
-    <div class="flex justify-between space-x-8 items-start">
-        <div class="islandBookUser islandColorCss">
+
+    <div class="flex justify-center items-center">
+        <form @submit.prevent="getBookByThemes" class="islandColorCss">
+            <label>Search Theme:</label>
+            <select v-model="bookThemeForm"
+                class="mt-2 w-full border-2 border-white text-white bg-teal-500 rounded-xl p-2 cursor-pointer transition-all duration-300 focus:outline-none focus:ring-0">
+                <option class="text-black" value="" disabled selected>Select a theme</option>
+                <option class="text-black hover:bg-teal-600 hover:text-black cursor-pointer" value="Magic">Magic
+                </option>
+                <option class="text-black hover:bg-teal-600 hover:text-black cursor-pointer" value="Fantesy">
+                    Fantasy</option>
+                <option class="text-black hover:bg-teal-600 hover:text-black cursor-pointer" value="Real">Real
+                </option>
+            </select>
+            <button type="submit"
+                class="mt-4 w-full border-2 border-white text-white bg-teal-500 rounded-xl p-2 transition-all duration-300 hover:bg-teal-600">
+                Go
+            </button>
+        </form>
+    </div>
+
+    <div class="flex justify-between items-start">
+        <div class="islandBookUser islandColorCss" id="bookIsland">
             <h2 class="text-xl font-semibold mb-4">Books</h2>
             <div v-for="book in booksOutput" :key="book.title" class="mb-2">
                 <h3 @click="goToDetails(book)" class="cursor-pointer text-lg hover:underline p-2" :class="{
@@ -9,18 +30,23 @@
                     {{ book.title }}
                 </h3>
             </div>
-            <div v-for="coord in points" :key="`${coord.x}-${coord.y}`">
-                <div class="absolute bg-black h-[2px] origin-left transition-all duration-500 ease-in-out" :style="{
-                    width: animatedLines[`${coord.x}-${coord.y}`] ? `${distance(coordinatesUser, coord)}px` : '0px',
-                    height: '3px',
-                    left: `${coordinatesUser.x}px`,
-                    top: `${coordinatesUser.y}px`,
-                    transform: `rotate(${angle(coordinatesUser, coord)}deg)`
-                }"></div>
-            </div>
+        </div>
+        <div class="w-full">
+            <svg class="w-full border border-bg-gray" :style="{ height: svgHeight + 'px' }" id="svgBox">
+                <defs>
+                    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto"
+                        markerUnits="strokeWidth">
+                        <polygon points="0 0, 10 3.5, 0 7" fill="blue" />
+                    </marker>
+                </defs>
+
+                <path v-for="(path, index) in paths" :key="index" ref="pathRefs" :d="path" stroke="blue"
+                    stroke-width="3" fill="transparent" marker-end="url(#arrowhead)">
+                </path>
+            </svg>
         </div>
 
-        <div class="islandBookUser islandColorCss">
+        <div class="islandBookUser islandColorCss" id="userIsland">
             <h2 class="text-xl font-semibold mb-4">Users</h2>
             <div v-for="user in usersOutput" :key="user.name" class="mb-4">
                 <h3 class="text-lg" :class="userClass[user.name]">
@@ -29,7 +55,7 @@
                     class="mt-2 px-4 py-1 bg-blue-500 text-white rounded-lg hover:bg-blue-600 cursor-pointer">
                     Reading Level
                 </button>
-                <button @click="getBookMultiple(user.preferedTheme, user.readingLvl)"
+                <button @click="getBookMultiple(user)"
                     class="mt-2 px-4 py-1 bg-blue-500 text-white rounded-lg hover:bg-blue-600 cursor-pointer">
                     Theme and Reading Level
                 </button>
@@ -38,12 +64,6 @@
     </div>
 </template>
 
-<!-- What must be done:
-    Clicking on titles => details 
-    - Get By Reading Level              (())
-    - Get By Reading and Theme          (())
-    - Get By Theme ((SEARCH BAR))
--->
 
 <script lang="ts" setup>
 
@@ -57,64 +77,35 @@ import type { User } from '~/types/user';
 const { booksOutput, getAllEntriesBook, submitFormBook, formBodyBook, getBookByReadingLevel, getBookPrefferedThemeAndReading, getBookByTheme, bookThemeForm, booksOutputRecomandations } = useGetOutputBook();
 const { getAllEntriesUser, usersOutput, submitFormUser, formBodyUser } = useGetOutputUser();
 const { applyXSLT, transformedBooks } = useXMS();
+const { updateAll, svgHeight, paths, pathLengths, pathRefs, updatePathLengths, updateSvg, restartAnimation, points } = useAnimation();
 const { router } = useCommon();
 const store = useStore();
 
+const selectedUser = ref<User | null>();
 
 onMounted(async () => {
     await getAllEntriesBook();
     await getAllEntriesUser();
+    updateSvg()
+    updatePathLengths()
 })
 
-interface coords {
-    x: number,
-    y: number
-}
-
-const coordinatesUser = ref<coords>({ x: 300, y: 300 });
-const selectedUser = ref<User | null>();
-const points = ref<coords[]>([])
-const animatedLines = ref<Record<string, boolean>>({});
-
-
-
-const getByReadingLvl = async (user: User) => {
-
+const applyAll = async (user: User) => {
     points.value.length = 0;
-    animatedLines.value = {}
+    pathLengths.value.length = 0;
+    pathLengths.value = [];
+    pathRefs.value = [];
 
-    await getBookByReadingLevel(user.readingLvl);
     selectedUser.value = user;
 
-    await uppdateAll();
+    await updateAll();
+    updatePathLengths()
+    restartAnimation()
 }
 
-
-const uppdateAll = async () => {
-
-    await nextTick();
-
-    const highlightedBooks = document.querySelectorAll<HTMLElement>(".circular-gradient-border");
-    const highlightedUser = document.querySelector<HTMLElement>(".circular-gradient-border2");
-    if (highlightedUser) {
-        const rect = highlightedUser.getBoundingClientRect();
-        coordinatesUser.value = { x: rect.x, y: rect.y }
-    }
-
-    await nextTick();
-
-    highlightedBooks.forEach((el, index) => {
-        const rect = el.getBoundingClientRect();
-        const point: coords = { x: rect.x + 185, y: rect.y - 50 };
-        points.value.push(point);
-
-    });
-
-    setTimeout(() => {
-        points.value.forEach((point) => {
-            animatedLines.value[`${point.x}-${point.y}`] = true;
-        });
-    }, 100);
+const getByReadingLvl = async (user: User) => {
+    await getBookByReadingLevel(user.readingLvl);
+    await applyAll(user);
 }
 
 
@@ -123,7 +114,6 @@ const recomandedBooks = computed(() => {
 })
 
 const selectUser = (user: User): Boolean => {
-    console.log("Select User")
     return (user === selectedUser.value)
 }
 
@@ -155,17 +145,10 @@ const addUser = async () => {
     await getAllEntriesUser();
 };
 
-const getBookMultiple = async (preffredTheme: string, readingLvl: string) => {
-    await getBookPrefferedThemeAndReading(preffredTheme, readingLvl);
+const getBookMultiple = async (user: User) => {
+    await getBookPrefferedThemeAndReading(user.preferedTheme, user.readingLvl);
+    await applyAll(user);
 };
 
-
-const distance = (point1: coords, point2: coords) => {
-    return Math.sqrt(Math.pow(point2.x - point1.x, 2) + Math.pow(point2.y - point1.y, 2));
-};
-
-const angle = (point1: coords, point2: coords) => {
-    return Math.atan2(point2.y - point1.y, point2.x - point1.x) * (180 / Math.PI);
-};
 
 </script>
