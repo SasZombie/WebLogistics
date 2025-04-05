@@ -120,10 +120,9 @@ export const useGetOutputBook = () => {
   };
 
   const getBookByTheme = async (prefferedTheme: string) => {
-    const xPath = `/books/book[theme1 = ${prefferedTheme} or theme2 = ${prefferedTheme})]`;
+    const xPath = `/books/book[theme1 = ${prefferedTheme} or theme2 = ${prefferedTheme}]`;
     const parts = splitXPathExpression(xPath);
 
-    console.log(parts)
     const operators = extractOperators(xPath);
 
     let arrays: Book[][] = [];
@@ -139,7 +138,6 @@ export const useGetOutputBook = () => {
           }),
         });
         const data = await response.json();
-        console.log(data.books)
         if (Array.isArray(data.books)) {
           arrays.push(data.books);
         }
@@ -148,13 +146,10 @@ export const useGetOutputBook = () => {
       }
     }
 
-    console.log("arrays = ", arrays)
     const combinedIndicies = combineIndicies(operators);
 
-    console.log("combine", combinedIndicies)
-
     const result = evaluateBookExpression(arrays, combinedIndicies);
-    console.error(result);
+    booksOutputRecomandations.value = result;
   };
 
   const getBookField = async (bookName: string, index: number) => {

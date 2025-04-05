@@ -41,7 +41,7 @@
                 </defs>
 
                 <path v-for="(path, index) in paths" :key="index" ref="pathRefs" :d="path" stroke="blue"
-                    stroke-width="3" fill="transparent" marker-end="url(#arrowhead)">
+                    stroke-width="3" fill="transparent" :marker-end="path && path.length > 0 ? 'url(#arrowhead)' : ''">
                 </path>
             </svg>
         </div>
@@ -103,6 +103,16 @@ const applyAll = async (user: User) => {
     restartAnimation()
 }
 
+const applyAllSearch = async () => {
+    points.value.length = 0;
+    pathLengths.value.length = 0;
+    pathLengths.value = [];
+    pathRefs.value = [];
+
+    paths.value.length = 0;
+    selectedUser.value = null;
+}
+
 const getByReadingLvl = async (user: User) => {
     await getBookByReadingLevel(user.readingLvl);
     await applyAll(user);
@@ -133,6 +143,7 @@ const goToDetails = (book: Book) => {
 
 const getBookByThemes = async () => {
     await getBookByTheme(bookThemeForm.value);
+    applyAllSearch();
 }
 
 const addBook = async () => {
