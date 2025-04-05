@@ -2,8 +2,6 @@ import { ref } from "vue";
 import type { Book } from "@/types/book";
 import {
   extractOperators,
-  filterBooks,
-  evaluateExpressionNumber,
   splitXPathExpression,
   combineIndicies,
   evaluateBookExpression,
@@ -12,7 +10,7 @@ import {
 export const useGetOutputBook = () => {
   const booksOutput = ref<Book[]>([]);
   const bookThemeForm = ref("");
-
+  const strikes = ref(0);
 
   const bookQuerry = ref([
     { label: "Title", content: "Book Title Content", show: false, queryValue: "title" },
@@ -47,20 +45,34 @@ export const useGetOutputBook = () => {
 
   const submitFormBook = async () => {
     try {
+
+      const toSend = JSON.stringify({
+        title: formBodyBook.value.title,
+        theme1: formBodyBook.value.theme1,
+        theme2: formBodyBook.value.theme2,
+        readingLvl: formBodyBook.value.readingLvl,
+      })
+
       const response = await fetch("/api/addEntryBook", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          title: formBodyBook.value.title,
-          theme1: formBodyBook.value.theme1,
-          theme2: formBodyBook.value.theme2,
-          readingLvl: formBodyBook.value.readingLvl,
-        }),
+        body: toSend,
       });
       const data = await response.json();
+      if(data.statusCode === 69)
+      {
+        strikes.value += Number.parseInt(data.message);
+        console.log("Slacker")
+
+        if(strikes.value === 3)
+        {
+          window.location.href = '/slaker'
+        }
+      }
     } catch (error) {
+
       console.error(error);
     }
   };
@@ -172,7 +184,7 @@ export const useGetOutputBook = () => {
       console.error(error);
     }
   };
-  
+
   return {
     booksOutput,
     getAllEntriesBook,

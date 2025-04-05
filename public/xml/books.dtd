@@ -1,4 +1,4 @@
-<!ELEMENT books (book+)>
+<!ELEMENT books (book*)>
 <!ATTLIST books xmlns:xsi CDATA #IMPLIED>
 <!ATTLIST books xsi:noNamespaceSchemaLocation CDATA #IMPLIED>
 <!ELEMENT book (title, theme1, theme2, readingLvl)>

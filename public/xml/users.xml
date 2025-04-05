@@ -1,32 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<users>
-    <user>
-        <name>
-            Sas
-        </name>
-        <surrname>
-            Zombie
-        </surrname>
-        <preferedTheme>
-            Mystery
-        </preferedTheme>
-        <readingLvl>
-            Hard
-        </readingLvl>
-    </user>
-    <user>
-        <name>
-            Zomb
-        </name>
-        <surrname>
-            Zombie
-        </surrname>
-        <preferedTheme>
-            Magic
-        </preferedTheme>
-        <readingLvl>
-            Intermediate
-        </readingLvl>
-    </user>
+<?xml-stylesheet type="text/xsl" href="transform.xsl"?>
+<!DOCTYPE users SYSTEM "users.dtd">
+<users xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="users.xsd">
+  <user>
+    <name>Sas</name>
+    <surrname>Zombie</surrname>
+    <preferedTheme>Magic</preferedTheme>
+    <readingLvl>Intermediate</readingLvl>
+  </user>
 </users>

@@ -25,8 +25,8 @@ export const useAnimation = () => {
     if (highlightedUser) {
       const rect = highlightedUser.getBoundingClientRect();
       coordinatesUser.value = {
-        x: rect.x + window.scrollX - 100,  
-        y: rect.y + window.scrollY - svgBoxOffsetTop 
+        x: rect.x + window.scrollX - 200,  
+        y: rect.y + window.scrollY - svgBoxOffsetTop + 20
       };
     }
   

@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 .buttonCss {
-  @apply bg-teal-500 text-white font-bold rounded;
+  @apply mt-4 w-full border-2 border-white text-white bg-teal-500 rounded-xl p-2 transition-all duration-300 hover:bg-teal-600 cursor-pointer
 }
 
 .onTealTextCss {
@@ -13,7 +13,7 @@
 }
 
 .islandBookUser {
-  @apply w-full sm:w-1/3 md:w-[13vw] px-4 shadow-lg rounded-lg p-6 min-h-0;
+  @apply w-full sm:w-1/3 md:w-[15vw] px-4 shadow-lg rounded-lg p-6 min-h-0;
   box-sizing: border-box;
 
 }
@@ -26,6 +26,22 @@
 .islandColorCss {
   @apply relative p-6 bg-teal-500 text-white rounded-2xl text-center 
   transition-all duration-300;
+}
+
+.formCss{
+  @apply mt-2 w-full border-2 border-white text-white bg-teal-500 rounded-xl p-2 transition-all duration-300 focus:outline-none focus:ring-0
+}
+
+.formCssAdd{
+  @apply mt-2 mb-2 w-full space-y-1 border-2 border-white text-white bg-teal-500 rounded-xl p-2 transition-all duration-300 focus:outline-none focus:ring-0
+}
+
+.formCssInput{
+  @apply w-40 border-2 border-white rounded-xl;
+}
+
+.optionsCss{
+  @apply border-2 rounded-xl bg-teal-500 text-white
 }
 
 @keyframes gradientRotation {

@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 import type { Book } from "~/types/book";
+import type { User } from "~/types/user";
 
 export const useCommon = () => {
   const router = useRouter();
@@ -7,7 +8,7 @@ export const useCommon = () => {
   return { router };
 };
 
-export const useStore = defineStore("store", {
+export const useStoreBook = defineStore("storeBook", {
   state: () => ({
     book: null as Book | null,
   }),
@@ -17,3 +18,15 @@ export const useStore = defineStore("store", {
     },
   },
 });
+
+export const useStoreUser = defineStore("storeUser", {
+  state: () => ({
+    user: null as User | null,
+  }),
+  actions: {
+    setUser(user: User) {
+      this.user = user;
+    },
+  },
+});
+

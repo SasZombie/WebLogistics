@@ -1,0 +1,8 @@
+<!ELEMENT users (user+)>
+<!ATTLIST users xmlns:xsi CDATA #IMPLIED>
+<!ATTLIST users xsi:noNamespaceSchemaLocation CDATA #IMPLIED>
+<!ELEMENT user (name, surrname, preferedTheme, readingLvl)>
+<!ELEMENT name (#PCDATA)>
+<!ELEMENT surrname (#PCDATA)>
+<!ELEMENT preferedTheme (#PCDATA)>
+<!ELEMENT readingLvl (#PCDATA)>

@@ -21,7 +21,7 @@
 </template>
 
 <script lang="ts" setup>
-const store = useStore();
+const store = useStoreBook();
 const book = store.book;
 
 const cooldownActive = ref([false, false, false, false]);

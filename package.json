@@ -12,6 +12,8 @@
   "dependencies": {
     "@pinia/nuxt": "^0.10.1",
     "@tailwindcss/vite": "^4.0.17",
+    "axios": "^1.8.4",
+    "cheerio": "^1.0.0",
     "framer": "^2.4.1",
     "gasp": "^0.0.2",
     "gsap": "^3.12.7",

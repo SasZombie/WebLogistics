@@ -3,18 +3,20 @@
     <div class="flex justify-center items-center">
         <form @submit.prevent="getBookByThemes" class="islandColorCss">
             <label>Search Theme:</label>
-            <select v-model="bookThemeForm"
-                class="mt-2 w-full border-2 border-white text-white bg-teal-500 rounded-xl p-2 cursor-pointer transition-all duration-300 focus:outline-none focus:ring-0">
+            <select v-model="bookThemeForm" class="formCss">
                 <option class="text-black" value="" disabled selected>Select a theme</option>
                 <option class="text-black hover:bg-teal-600 hover:text-black cursor-pointer" value="Magic">Magic
                 </option>
-                <option class="text-black hover:bg-teal-600 hover:text-black cursor-pointer" value="Fantesy">
-                    Fantasy</option>
+                <option class="text-black hover:bg-teal-600 hover:text-black cursor-pointer" value="Fantesy"> Fantesy
+                </option>
                 <option class="text-black hover:bg-teal-600 hover:text-black cursor-pointer" value="Real">Real
                 </option>
+                <option class="text-black hover:bg-teal-600 hover:text-black cursor-pointer" value="Robots">Robots
+                </option>
+                <option class="text-black hover:bg-teal-600 hover:text-black cursor-pointer" value="Apocalypse">Apocalypse
+                </option>
             </select>
-            <button type="submit"
-                class="mt-4 w-full border-2 border-white text-white bg-teal-500 rounded-xl p-2 transition-all duration-300 hover:bg-teal-600">
+            <button type="submit" class="buttonCss">
                 Go
             </button>
         </form>
@@ -22,7 +24,37 @@
 
     <div class="flex justify-between items-start">
         <div class="islandBookUser islandColorCss" id="bookIsland">
-            <h2 class="text-xl font-semibold mb-4">Books</h2>
+            <h2 class="text-xl font-semibold ">Books
+                <button @click="toggleFormBook" class="cursor-pointer "> {{ signBook }}</button>
+            </h2>
+            <div v-if="showAddBook">
+                <form @submit.prevent="addBook" class="formCssAdd">
+                    <div>
+                        <label for="title" class="labelCss">Title:</label>
+                        <input type="text" id="title" v-model="formBodyBook.title" class="formCssInput" required />
+                    </div>
+                    <div>
+                        <label for="theme1" class="labelCss">Theme 1:</label>
+                        <input type="text" id="theme1" v-model="formBodyBook.theme1" class="formCssInput" required />
+                    </div>
+                    <div>
+                        <label for="theme2" class="labelCss">Theme 2:</label>
+                        <input type="text" id="theme2" v-model="formBodyBook.theme2" class="formCssInput" required />
+                    </div>
+                    <div>
+                        <label for="readingLvlBook" class="boarder-2">Reading Level:</label>
+                        <select v-model="formBodyBook.readingLvl" class="optionsCss  cursor-pointer " required>
+                            <option class="text-black" value="" disabled selected>Choose One</option>
+                            <option class="text-black" value="Beginer">Beginer</option>
+                            <option class="text-black" value="Intermediate">Intermediate</option>
+                            <option class="text-black" value="Advanced">Advanced</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="buttonCss">
+                        Add Book
+                    </button>
+                </form>
+            </div>
             <div v-for="book in booksOutput" :key="book.title" class="mb-2">
                 <h3 @click="goToDetails(book)" class="cursor-pointer text-lg hover:underline p-2" :class="{
                     'circular-gradient-border': recomandedBooks.has(book.title)
@@ -32,7 +64,7 @@
             </div>
         </div>
         <div class="w-full">
-            <svg class="w-full border border-bg-gray" :style="{ height: svgHeight + 'px' }" id="svgBox">
+            <svg class="w-full" :style="{ height: svgHeight + 'px' }" id="svgBox">
                 <defs>
                     <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto"
                         markerUnits="strokeWidth">
@@ -47,16 +79,46 @@
         </div>
 
         <div class="islandBookUser islandColorCss" id="userIsland">
-            <h2 class="text-xl font-semibold mb-4">Users</h2>
+            <h2 class="text-xl font-semibold">Users
+                <button @click="toggleFormUser" class="cursor-pointer "> {{ signUser }}</button>
+            </h2>
+            <div v-if="showAddUser">
+                <form @submit.prevent="addUser" class="formCssAdd">
+                    <div>
+                        <label for="name" class="labelCss">Name:</label>
+                        <input type="text" id="name" v-model="formBodyUser.name" class="formCssInput" required />
+                    </div>
+                    <div>
+                        <label for="surrname" class="labelCss">Surname:</label>
+                        <input type="text" id="surrname" v-model="formBodyUser.surrname" class="formCssInput"
+                            required />
+                    </div>
+                    <div>
+                        <label for="prefferedTheme" class="labelCss">Preferred Theme:</label>
+                        <input type="text" id="prefferedTheme" v-model="formBodyUser.preferedTheme" class="formCssInput"
+                            required />
+                    </div>
+                    <div>
+                        <label for="readingLvlUser" class="boarder-2">Reading Level:</label>
+                        <select v-model="formBodyUser.readingLvl" class="optionsCss  cursor-pointer " required>
+                            <option class="text-black" value="" disabled selected>Choose One</option>
+                            <option class="text-black" value="Beginer">Beginer</option>
+                            <option class="text-black" value="Intermediate">Intermediate</option>
+                            <option class="text-black" value="Advanced">Advanced</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="buttonCss">
+                        Add User
+                    </button>
+                </form>
+            </div>
             <div v-for="user in usersOutput" :key="user.name" class="mb-4">
-                <h3 class="text-lg" :class="userClass[user.name]">
+                <h3 @click="goToAllBooks(user)" class="text-lg cursor-pointer underline" :class="userClass[user.name]">
                     {{ user.name }} {{ user.surrname }}</h3>
-                <button @click="getByReadingLvl(user)"
-                    class="mt-2 px-4 py-1 bg-blue-500 text-white rounded-lg hover:bg-blue-600 cursor-pointer">
+                <button @click="getByReadingLvl(user)" class="buttonCss">
                     Reading Level
                 </button>
-                <button @click="getBookMultiple(user)"
-                    class="mt-2 px-4 py-1 bg-blue-500 text-white rounded-lg hover:bg-blue-600 cursor-pointer">
+                <button @click="getBookMultiple(user)" class="buttonCss">
                     Theme and Reading Level
                 </button>
             </div>
@@ -70,17 +132,22 @@
 import { onMounted } from 'vue';
 import { useGetOutputBook } from '@/composables/useGetOutputBook';
 import { useGetOutputUser } from '@/composables/useGetOutputUser';
-import { useXMS } from '@/composables/useXMS';
 import type { Book } from '~/types/book';
 import type { User } from '~/types/user';
 
-const { booksOutput, getAllEntriesBook, submitFormBook, formBodyBook, getBookByReadingLevel, getBookPrefferedThemeAndReading, getBookByTheme, bookThemeForm, booksOutputRecomandations } = useGetOutputBook();
 const { getAllEntriesUser, usersOutput, submitFormUser, formBodyUser } = useGetOutputUser();
-const { applyXSLT, transformedBooks } = useXMS();
+const { booksOutput, getAllEntriesBook, submitFormBook, formBodyBook, getBookByReadingLevel, getBookPrefferedThemeAndReading, getBookByTheme, bookThemeForm, booksOutputRecomandations } = useGetOutputBook();
 const { updateAll, svgHeight, paths, pathLengths, pathRefs, updatePathLengths, updateSvg, restartAnimation, points } = useAnimation();
 const { router } = useCommon();
-const store = useStore();
 
+
+const bookStore = useStoreBook();
+const userStore = useStoreUser();
+
+const showAddUser = ref(false);
+const showAddBook = ref(false);
+const signUser = ref('+')
+const signBook = ref('+')
 const selectedUser = ref<User | null>();
 
 onMounted(async () => {
@@ -89,6 +156,17 @@ onMounted(async () => {
     updateSvg()
     updatePathLengths()
 })
+
+const goToDetails = (book: Book) => {
+    console.log("click")
+    bookStore.setBook(book);
+    router.push('/details');
+}
+
+const goToAllBooks = (user: User) => {
+    userStore.setUser(user);
+    router.push('/colored');
+}
 
 const applyAll = async (user: User) => {
     points.value.length = 0;
@@ -103,14 +181,39 @@ const applyAll = async (user: User) => {
     restartAnimation()
 }
 
-const applyAllSearch = async () => {
+const applyAllSearch = () => {
     points.value.length = 0;
     pathLengths.value.length = 0;
     pathLengths.value = [];
     pathRefs.value = [];
-
-    paths.value.length = 0;
     selectedUser.value = null;
+
+    updateSvg()
+}
+
+const clear = () => {
+    applyAllSearch()
+    booksOutputRecomandations.value.length = 0;
+}
+
+const toggleFormUser = () => {
+    showAddUser.value = !showAddUser.value
+    if (showAddUser.value) {
+        signUser.value = '-'
+    } else {
+        signUser.value = '+'
+    }
+    clear()
+}
+
+const toggleFormBook = () => {
+    showAddBook.value = !showAddBook.value
+    if (showAddBook.value) {
+        signBook.value = '-'
+    } else {
+        signBook.value = '+'
+    }
+    clear()
 }
 
 const getByReadingLvl = async (user: User) => {
@@ -118,6 +221,23 @@ const getByReadingLvl = async (user: User) => {
     await applyAll(user);
 }
 
+const getBookByThemes = async () => {
+    await getBookByTheme(bookThemeForm.value);
+    applyAllSearch();
+}
+
+const getBookMultiple = async (user: User) => {
+    await getBookPrefferedThemeAndReading(user.preferedTheme, user.readingLvl);
+    await applyAll(user);
+};
+
+const addBook = async () => {
+    await submitFormBook();
+};
+
+const addUser = async () => {
+    await submitFormUser();
+};
 
 const recomandedBooks = computed(() => {
     return new Set(booksOutputRecomandations.value.map(b => b.title));
@@ -135,31 +255,5 @@ const userClass = computed(() => {
 
     return classes;
 })
-
-const goToDetails = (book: Book) => {
-    store.setBook(book);
-    router.push('/details');
-}
-
-const getBookByThemes = async () => {
-    await getBookByTheme(bookThemeForm.value);
-    applyAllSearch();
-}
-
-const addBook = async () => {
-    await submitFormBook();
-    await getAllEntriesBook();
-};
-
-const addUser = async () => {
-    await submitFormUser();
-    await getAllEntriesUser();
-};
-
-const getBookMultiple = async (user: User) => {
-    await getBookPrefferedThemeAndReading(user.preferedTheme, user.readingLvl);
-    await applyAll(user);
-};
-
 
 </script>

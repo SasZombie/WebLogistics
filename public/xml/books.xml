@@ -3,283 +3,123 @@
 <!DOCTYPE books SYSTEM "books.dtd">
 <books xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="books.xsd">
     <book>
-        <title>
-            The Adventures of Sherlock Holmes
-        </title>
-        <theme1>
-            Fantesy
-        </theme1>
-        <theme2>
-            Magic
-        </theme2>
-        <readingLvl>
-            Intermediate
-        </readingLvl>
-    </book>
-        <book>
-        <title>
-            TitluTest
-        </title>
-        <theme1>
-            Fantesy
-        </theme1>
-        <theme2>
-            Mystery
-        </theme2>
-        <readingLvl>
-            Easy
-        </readingLvl>
+        <title>1984 (Signet Classics)</title>
+        <theme1>Magic</theme1>
+        <theme2>Apocalypse</theme2>
+        <readingLvl>Beginner</readingLvl>
     </book>
     <book>
-        <title>
-            The Adventures of Sherlock Holmes
-        </title>
-        <theme1>
-            Fantesy
-        </theme1>
-        <theme2>
-            Magic
-        </theme2>
-        <readingLvl>
-            Intermediate
-        </readingLvl>
+        <title>Adventures of Huckleberry Finn</title>
+        <theme1>Fantesy</theme1>
+        <theme2>Fantesy</theme2>
+        <readingLvl>Advanced</readingLvl>
     </book>
     <book>
-        <title>
-            The Adventures of Sherlock Holmes
-        </title>
-        <theme1>
-            Fantesy
-        </theme1>
-        <theme2>
-            Magic
-        </theme2>
-        <readingLvl>
-            Intermediate
-        </readingLvl>
-    </book>
-       <book>
-        <title>
-            TitluTest
-        </title>
-        <theme1>
-            Fantesy
-        </theme1>
-        <theme2>
-            Mystery
-        </theme2>
-        <readingLvl>
-            Easy
-        </readingLvl>
+        <title>The Complete Sherlock Holmes</title>
+        <theme1>Magic</theme1>
+        <theme2>Apocalypse</theme2>
+        <readingLvl>Beginner</readingLvl>
     </book>
     <book>
-        <title>
-            The Adventures of Sherlock Holmes
-        </title>
-        <theme1>
-            Fantesy
-        </theme1>
-        <theme2>
-            Magic
-        </theme2>
-        <readingLvl>
-            Intermediate
-        </readingLvl>
+        <title>The Alchemist, 25th Anniversary: A Fable About Following Your Dream</title>
+        <theme1>Real</theme1>
+        <theme2>Magic</theme2>
+        <readingLvl>Intermediate</readingLvl>
     </book>
     <book>
-        <title>
-            The Adventures of Sherlock Holmes
-        </title>
-        <theme1>
-            Fantesy
-        </theme1>
-        <theme2>
-            Magic
-        </theme2>
-        <readingLvl>
-            Intermediate
-        </readingLvl>
+        <title>Animal Farm</title>
+        <theme1>Magic</theme1>
+        <theme2>Fantesy</theme2>
+        <readingLvl>Advanced</readingLvl>
     </book>
     <book>
-        <title>
-            The Adventures of Sherlock Holmes
-        </title>
-        <theme1>
-            Fantesy
-        </theme1>
-        <theme2>
-            Magic
-        </theme2>
-        <readingLvl>
-            Intermediate
-        </readingLvl>
+        <title>Anna Karenina (Wordsworth Classics)</title>
+        <theme1>Apocalypse</theme1>
+        <theme2>Magic</theme2>
+        <readingLvl>Intermediate</readingLvl>
     </book>
     <book>
-        <title>
-            The Adventures of Sherlock Holmes
-        </title>
-        <theme1>
-            Fantesy
-        </theme1>
-        <theme2>
-            Magic
-        </theme2>
-        <readingLvl>
-            Intermediate
-        </readingLvl>
+        <title>As I Lay Dying</title>
+        <theme1>Real</theme1>
+        <theme2>Magic</theme2>
+        <readingLvl>Advanced</readingLvl>
     </book>
     <book>
-        <title>
-            The Adventures of Sherlock Holmes
-        </title>
-        <theme1>
-            Fantesy
-        </theme1>
-        <theme2>
-            Magic
-        </theme2>
-        <readingLvl>
-            Intermediate
-        </readingLvl>
+        <title>Beloved</title>
+        <theme1>Robots</theme1>
+        <theme2>Magic</theme2>
+        <readingLvl>Advanced</readingLvl>
     </book>
     <book>
-        <title>
-            TitluTest
-        </title>
-        <theme1>
-            Fantesy
-        </theme1>
-        <theme2>
-            Magic
-        </theme2>
-        <readingLvl>
-            Hard
-        </readingLvl>
+        <title>Catch-22: 50th Anniversary Edition</title>
+        <theme1>Magic</theme1>
+        <theme2>Real</theme2>
+        <readingLvl>Intermediate</readingLvl>
     </book>
-     <book>
-        <title>
-            TitluTest
-        </title>
-        <theme1>
-            Fantesy
-        </theme1>
-        <theme2>
-            Mystery
-        </theme2>
-        <readingLvl>
-            Easy
-        </readingLvl>
+    <book>
+        <title>The Catcher in the Rye</title>
+        <theme1>Apocalypse</theme1>
+        <theme2>Apocalypse</theme2>
+        <readingLvl>Advanced</readingLvl>
     </book>
-     <book>
-        <title>
-            TitluTest
-        </title>
-        <theme1>
-            Fantesy
-        </theme1>
-        <theme2>
-            Mystery
-        </theme2>
-        <readingLvl>
-            Easy
-        </readingLvl>
+    <book>
+        <title>Charlie and the Chocolate Factory</title>
+        <theme1>Fantesy</theme1>
+        <theme2>Real</theme2>
+        <readingLvl>Beginner</readingLvl>
     </book>
-     <book>
-        <title>
-            TitluTest
-        </title>
-        <theme1>
-            Fantesy
-        </theme1>
-        <theme2>
-            Mystery
-        </theme2>
-        <readingLvl>
-            Easy
-        </readingLvl>
+    <book>
+        <title>The Call of the Wild (Global Classics)</title>
+        <theme1>Real</theme1>
+        <theme2>Robots</theme2>
+        <readingLvl>Advanced</readingLvl>
     </book>
-     <book>
-        <title>
-            TitluTest
-        </title>
-        <theme1>
-            Fantesy
-        </theme1>
-        <theme2>
-            Mystery
-        </theme2>
-        <readingLvl>
-            Easy
-        </readingLvl>
+    <book>
+        <title>The Code of the Woosters</title>
+        <theme1>Robots</theme1>
+        <theme2>Apocalypse</theme2>
+        <readingLvl>Advanced</readingLvl>
     </book>
-     <book>
-        <title>
-            TitluTest
-        </title>
-        <theme1>
-            Fantesy
-        </theme1>
-        <theme2>
-            Mystery
-        </theme2>
-        <readingLvl>
-            Easy
-        </readingLvl>
+    <book>
+        <title>Complete Tales &amp; Poems Of Edgar Allan Po</title>
+        <theme1>Apocalypse</theme1>
+        <theme2>Robots</theme2>
+        <readingLvl>Beginner</readingLvl>
     </book>
-     <book>
-        <title>
-            TitluTest
-        </title>
-        <theme1>
-            Fantesy
-        </theme1>
-        <theme2>
-            Mystery
-        </theme2>
-        <readingLvl>
-            Easy
-        </readingLvl>
+    <book>
+        <title>The Color Purple: A Novel</title>
+        <theme1>Magic</theme1>
+        <theme2>Apocalypse</theme2>
+        <readingLvl>Intermediate</readingLvl>
     </book>
-     <book>
-        <title>
-            TitluTest
-        </title>
-        <theme1>
-            Fantesy
-        </theme1>
-        <theme2>
-            Mystery
-        </theme2>
-        <readingLvl>
-            Easy
-        </readingLvl>
+    <book>
+        <title>The Count of Monte Cristo</title>
+        <theme1>Apocalypse</theme1>
+        <theme2>Fantesy</theme2>
+        <readingLvl>Advanced</readingLvl>
     </book>
-     <book>
-        <title>
-            TitluTest
-        </title>
-        <theme1>
-            Fantesy
-        </theme1>
-        <theme2>
-            Mystery
-        </theme2>
-        <readingLvl>
-            Easy
-        </readingLvl>
+    <book>
+        <title>The Curious Incident of the Dog in the Night-Time</title>
+        <theme1>Magic</theme1>
+        <theme2>Fantesy</theme2>
+        <readingLvl>Advanced</readingLvl>
     </book>
-     <book>
-        <title>
-            TitluTest
-        </title>
-        <theme1>
-            Fantesy
-        </theme1>
-        <theme2>
-            Mystery
-        </theme2>
-        <readingLvl>
-            Easy
-        </readingLvl>
+    <book>
+        <title>The Death of Artemio Cruz: A Novel (FSG Classics)</title>
+        <theme1>Apocalypse</theme1>
+        <theme2>Apocalypse</theme2>
+        <readingLvl>Advanced</readingLvl>
+    </book>
+    <book>
+        <title>Diary of a Madman, and other stories</title>
+        <theme1>Apocalypse</theme1>
+        <theme2>Real</theme2>
+        <readingLvl>Intermediate</readingLvl>
+    </book>
+    <book>
+        <title>Anne Frank: The Diary of a Young Girl</title>
+        <theme1>Magic</theme1>
+        <theme2>Apocalypse</theme2>
+        <readingLvl>Intermediate</readingLvl>
     </book>
 </books>
