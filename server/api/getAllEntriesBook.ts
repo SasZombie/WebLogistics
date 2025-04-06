@@ -30,7 +30,6 @@ export default defineEventHandler(async (event) => {
       }
 
       try {
-        // console.log(output)
         const books: Book[] = JSON.parse(output.trim());
         if (!Array.isArray(books)) {
           return reject({

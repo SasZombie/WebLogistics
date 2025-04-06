@@ -32,7 +32,6 @@ export default defineEventHandler(async (event) => {
       }
 
       try {
-        // console.log(output)
         const bookField: string = output.trim();
         resolve({ bookField });
       } catch (err) {

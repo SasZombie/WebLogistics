@@ -158,7 +158,6 @@ onMounted(async () => {
 })
 
 const goToDetails = (book: Book) => {
-    console.log("click")
     bookStore.setBook(book);
     router.push('/details');
 }
