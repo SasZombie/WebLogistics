@@ -19,7 +19,9 @@
             <button type="submit" class="buttonCss">
                 Go
             </button>
+            <div> <button @click="goToRdf" class="buttonCss">RDF File</button></div>
         </form>
+
     </div>
 
     <div class="flex justify-between items-start">
@@ -165,6 +167,10 @@ const goToDetails = (book: Book) => {
 const goToAllBooks = (user: User) => {
     userStore.setUser(user);
     router.push('/colored');
+}
+
+const goToRdf = () => {
+    router.push('/rdfVisualizer');
 }
 
 const applyAll = async (user: User) => {

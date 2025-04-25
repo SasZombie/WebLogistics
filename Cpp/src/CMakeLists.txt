@@ -28,3 +28,6 @@ target_link_libraries(getBooksBasedOnCriteria xmlparser utils)
 
 add_executable(getBookField getBookField.cpp)
 target_link_libraries(getBookField xmlparser utils)
+
+add_executable(uppdateValueBookRDF uppdateValueBookRDF.cpp)
+target_link_libraries(uppdateValueBookRDF xmlparser utils)

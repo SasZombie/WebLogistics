@@ -50,15 +50,22 @@ namespace xmlParser
 
         std::vector<std::shared_ptr<xmlNode>> findAllNodes(std::string_view target) noexcept;
         bool checkRec(const nodeFilter &filter) const noexcept;
-
+        
         void findAll(std::vector<std::shared_ptr<xmlNode>> &results) const noexcept;
         void findNode(std::string_view target, std::vector<std::shared_ptr<xmlNode>> &results) noexcept;
         void findNode(std::string_view target, std::vector<std::shared_ptr<xmlNode>> &results, const nodeFilter &filter) noexcept;
         void findNode(std::string_view target, std::vector<std::shared_ptr<xmlNode>> &results, const std::vector<nodeFilter> &filters) noexcept;
+        void serializeTree(std::ostream &out, int level) const noexcept;
+
+        std::shared_ptr<xmlNode> findNode(std::string_view target) noexcept;
+        std::shared_ptr<xmlNode> findNode(std::string_view target, const nodeFilter& filter) noexcept;
+
         std::vector<std::shared_ptr<xmlNode>> findAllNodes(std::string_view target, const nodeFilter &filter) noexcept;
         std::vector<std::shared_ptr<xmlNode>> findAllNodes(std::string_view target, const std::vector<nodeFilter> &filters) noexcept;
     };
 
     std::vector<xmlToken> tokenizeString(std::ifstream &input);
     std::shared_ptr<xmlNode> readXML(const std::string &filePath);
+    //This is used when edditing to commit changes
+    void writeXML(const std::string &filePath, const std::shared_ptr<xmlNode> &nodes) noexcept;
 } // namespace xmlParser

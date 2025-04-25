@@ -1,26 +1,26 @@
 #include "xmlparser.hpp"
 #include <ranges>
+#include <print>
 
 namespace xmlParser
 {
 
-    static bool contains(std::string_view str1, std::string_view str2) noexcept
+    static bool contains(std::string_view hay, std::string_view needle) noexcept
     {
-        if (str1 == str2)
+        if (hay == needle)
             return true;
-        size_t len1 = str1.length(), len2 = str2.length();
+        size_t hayLen = hay.length(), needleLen = needle.length();
 
-        if (len1 <= len2)
+        if (hayLen <= needleLen)
             return false;
 
         size_t ind = 0;
 
-        while (ind < len2 && str1[ind] == str2[ind])
+        while (ind < needleLen && hay[ind] == needle[ind])
         {
             ++ind;
         }
-
-        return (ind == len1 && str1[ind + 1] == ' ');
+        return (ind == needleLen && hay[ind] == ' ');
     }
 
     void xmlNode::findAll(std::vector<std::shared_ptr<xmlNode>> &results) const noexcept
@@ -111,6 +111,49 @@ namespace xmlParser
         }
     }
 
+    std::shared_ptr<xmlNode> xmlNode::findNode(std::string_view target) noexcept
+    {
+        if (contains(tagName, target))
+        {
+            return shared_from_this();
+        }
+
+        for (const auto &child : nodes)
+        {
+            auto result = child->findNode(target);
+
+            if (result)
+            {
+                return result;
+            }
+        }
+        return nullptr;
+
+        
+    }
+
+    std::shared_ptr<xmlNode> xmlNode::findNode(std::string_view target, const nodeFilter& filter) noexcept
+    {
+        if (contains(tagName, target))
+        {
+            if(checkRec(filter))
+            {
+                return shared_from_this();
+            }
+        }
+
+        for (const auto &child : nodes)
+        {
+            auto result = child->findNode(target);
+
+            if (result)
+            {
+                return result;
+            }
+        }
+        return nullptr;
+    }
+
     std::vector<std::shared_ptr<xmlNode>> xmlNode::findAllNodes(std::string_view target) noexcept
     {
         std::vector<std::shared_ptr<xmlNode>> results;
@@ -155,7 +198,7 @@ namespace xmlParser
         switch (tagType)
         {
         case TokenType::TAG_CLOSE:
-            std::cout << std::string(level * 2, ' ') << "</" << this->tagName << ">\n";
+            std::cout << std::string(level * 2, ' ') << "<" << this->tagName << ">\n";
 
             break;
 
@@ -176,6 +219,36 @@ namespace xmlParser
         for (const auto &child : nodes)
         {
             child->printTree(level + 1);
+        }
+    }
+
+    void xmlNode::serializeTree(std::ostream &out, int level) const noexcept
+    {
+        std::string indent(level * 2, ' ');
+
+        switch (tagType)
+        {
+        case TokenType::TAG_CLOSE:
+            out << indent << "<" << tagName << ">\n";
+            break;
+
+        case TokenType::TAG_OPEN:
+            out << indent << "<" << tagName << ">\n";
+            break;
+
+        case TokenType::META:
+        case TokenType::TEXT:
+            out << indent << tagName << '\n';
+            break;
+
+        default:
+            std::cerr << "Unreachable!\n";
+            break;
+        }
+
+        for (const auto &child : nodes)
+        {
+            child->serializeTree(out, level + 1);
         }
     }
 
@@ -371,5 +444,17 @@ namespace xmlParser
         }
 
         return root;
+    }
+    void writeXML(const std::string &filePath, const std::shared_ptr<xmlNode> &nodes) noexcept
+    {
+        std::ofstream out(filePath);
+
+        for (const auto& child : nodes->nodes)
+        {
+            child->serializeTree(out, 0);
+        }
+
+        //RAII handles this, but to be sure
+        out.close();
     }
 }
