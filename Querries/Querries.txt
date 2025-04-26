@@ -1,0 +1,47 @@
+PREFIX bookrec: <http://example.org/bookrec#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?book
+WHERE {
+  ?book rdf:type bookrec:Book .
+  ?book bookrec:suitableForReadingLevel bookrec:Beginner .
+}
+
+PREFIX bookrec: <http://example.org/bookrec#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?book
+WHERE {
+  ?book rdf:type bookrec:Book .
+  ?book bookrec:hasTheme bookrec:ScienceFiction .
+}
+
+PREFIX bookrec: <http://example.org/bookrec#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?user ?theme
+WHERE {
+  ?user rdf:type bookrec:User .
+  ?user bookrec:hasPreferredTheme ?theme .
+}
+
+PREFIX bookrec: <http://example.org/bookrec#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?book ?user
+WHERE {
+  ?user rdf:type bookrec:User .
+  ?user bookrec:hasPreferredTheme bookrec:ScienceFiction .
+  ?user bookrec:hasReadingLevel bookrec:Intermediate .
+  ?book rdf:type bookrec:Book .
+  ?book bookrec:hasTheme bookrec:ScienceFiction .
+  ?book bookrec:suitableForReadingLevel bookrec:Intermediate .
+}
+
+PREFIX bookrec: <http://example.org/bookrec#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?readingLevel
+WHERE {
+  bookrec:Alice bookrec:hasReadingLevel ?readingLevel .
+}
