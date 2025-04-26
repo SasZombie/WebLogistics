@@ -9,7 +9,8 @@ export default defineEventHandler(async (event) => {
   return new Promise<{ bookField: string }>((resolve, reject) => {
     const cppExec = `./Cpp/bin/getBookField${getCommandExt()}`;
 
-
+    const xPathString:string = xPath;
+    
     const child = spawn(cppExec, [xPath]);
 
     let output = "";
