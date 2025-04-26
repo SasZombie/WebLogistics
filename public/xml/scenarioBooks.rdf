@@ -1,15 +1,45 @@
 <?xml version="1.0"?>
 <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:ex="http://example.org/schema#">
   <ex:Book rdf:about="http://example.org/books/Dune">
-    <ex:hasTitle>Dune</ex:hasTitle>
-    <ex:hasTheme1>Science Fiction</ex:hasTheme1>
-    <ex:hasTheme2>Real</ex:hasTheme2>
-    <ex:hasReadingLvl>Beginer</ex:hasReadingLvl>
-  </ex:Book>
-    <ex:Book rdf:about="http://example.org/books/Cartea Smekeras">
-        <ex:hasTitle>Cartea Smekeras</ex:hasTitle>
-        <ex:hasTheme1>Robots</ex:hasTheme1>
-        <ex:hasTheme2>Magic</ex:hasTheme2>
-        <ex:hasReadingLvl>Intermediate</ex:hasReadingLvl>
+    <ex:hasTitle>
+      Sas
+      </ex:hasTitle>
+    <ex:hasTheme1>
+      Science
+      </ex:hasTheme1>
+    <ex:hasTheme2>
+      Real
+      </ex:hasTheme2>
+    <ex:hasReadingLvl>
+      Beginer
+      </ex:hasReadingLvl>
     </ex:Book>
-</rdf:RDF>
+  <ex:Book rdf:about="http://example.org/books/Cartea Smekeras">
+    <ex:hasTitle>
+      Cartea Smekeras
+      </ex:hasTitle>
+    <ex:hasTheme1>
+      Robots
+      </ex:hasTheme1>
+    <ex:hasTheme2>
+      Magic
+      </ex:hasTheme2>
+    <ex:hasReadingLvl>
+      Intermediate
+      </ex:hasReadingLvl>
+    </ex:Book>
+  <ex:Book rdf:about="http://example.org/books/Cartea Smekeras">
+    <ex:hasTitle>
+      Cartea Smekeras
+      </ex:hasTitle>
+    <ex:hasTheme1>
+      Robots
+      </ex:hasTheme1>
+    <ex:hasTheme2>
+      Magic
+      </ex:hasTheme2>
+    <ex:hasReadingLvl>
+      Intermediate
+      </ex:hasReadingLvl>
+    </ex:Book>
+  </rdf:RDF>

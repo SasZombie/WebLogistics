@@ -13,10 +13,10 @@ export const useGetOutputBook = () => {
   const strikes = ref(0);
 
   const bookQuerry = ref([
-    { label: "Title", content: "Book Title Content", show: false, queryValue: "ex:hasTitle" },
-    { label: "Theme 1", content: "Book Theme 1 Content", show: false, queryValue: "ex:hasTheme1" },
-    { label: "Theme 2", content: "Book Theme 2 Content", show: false, queryValue: "ex:hasTheme2" },
-    { label: "Reading Level", content: "Book Reading Level Content", show: false, queryValue: "ex:hasReadingLvl" },
+    { label: "Title", content: "Book Title Content", show: false, queryValue: "ex:hasTitle", isEditing: false },
+    { label: "Theme 1", content: "Book Theme 1 Content", show: false, queryValue: "ex:hasTheme1", isEditing: false },
+    { label: "Theme 2", content: "Book Theme 2 Content", show: false, queryValue: "ex:hasTheme2", isEditing: false },
+    { label: "Reading Level", content: "Book Reading Level Content", show: false, queryValue: "ex:hasReadingLvl", isEditing: false },
   ]);
 
   const booksOutputRecomandations = ref<Book[]>([]);
@@ -188,6 +188,27 @@ export const useGetOutputBook = () => {
     }
   };
 
+  const uppdateBookField = async (bookName: string, bookField:string, newValue: string, index: number) => {
+    try {
+      const response = await fetch("/api/updateBookField", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          bookName: bookName,
+          bookField: bookField,
+          newValue: newValue
+        }),
+      });
+      const data = await response.json();
+      bookQuerry.value[index].content = data.bookField;
+
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   return {
     booksOutput,
     getAllEntriesBook,
@@ -199,6 +220,7 @@ export const useGetOutputBook = () => {
     bookThemeForm,
     getBookField,
     bookQuerry,
-    booksOutputRecomandations
+    booksOutputRecomandations,
+    uppdateBookField
   };
 };
