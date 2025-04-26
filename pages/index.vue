@@ -33,19 +33,19 @@
                 <form @submit.prevent="addBook" class="formCssAdd">
                     <div>
                         <label for="title" class="labelCss">Title:</label>
-                        <input type="text" id="title" v-model="formBodyBook.title" class="formCssInput" required />
+                        <input type="text" id="title" v-model="formBodyBook.hasTitle" class="formCssInput" required />
                     </div>
                     <div>
                         <label for="theme1" class="labelCss">Theme 1:</label>
-                        <input type="text" id="theme1" v-model="formBodyBook.theme1" class="formCssInput" required />
+                        <input type="text" id="theme1" v-model="formBodyBook.hasTheme1" class="formCssInput" required />
                     </div>
                     <div>
                         <label for="theme2" class="labelCss">Theme 2:</label>
-                        <input type="text" id="theme2" v-model="formBodyBook.theme2" class="formCssInput" required />
+                        <input type="text" id="theme2" v-model="formBodyBook.hasTheme2" class="formCssInput" required />
                     </div>
                     <div>
                         <label for="readingLvlBook" class="boarder-2">Reading Level:</label>
-                        <select v-model="formBodyBook.readingLvl" class="optionsCss  cursor-pointer " required>
+                        <select v-model="formBodyBook.hasReadingLvl" class="optionsCss  cursor-pointer " required>
                             <option class="text-black" value="" disabled selected>Choose One</option>
                             <option class="text-black" value="Beginer">Beginer</option>
                             <option class="text-black" value="Intermediate">Intermediate</option>
@@ -57,11 +57,11 @@
                     </button>
                 </form>
             </div>
-            <div v-for="book in booksOutput" :key="book.title" class="mb-2">
+            <div v-for="book in booksOutput" :key="book.hasTitle" class="mb-2">
                 <h3 @click="goToDetails(book)" class="cursor-pointer text-lg hover:underline p-2" :class="{
-                    'circular-gradient-border': recomandedBooks.has(book.title)
+                    'circular-gradient-border': recomandedBooks.has(book.hasTitle)
                 }">
-                    {{ book.title }}
+                    {{ book.hasTitle }}
                 </h3>
             </div>
         </div>
@@ -88,21 +88,21 @@
                 <form @submit.prevent="addUser" class="formCssAdd">
                     <div>
                         <label for="name" class="labelCss">Name:</label>
-                        <input type="text" id="name" v-model="formBodyUser.name" class="formCssInput" required />
+                        <input type="text" id="name" v-model="formBodyUser.hasName" class="formCssInput" required />
                     </div>
                     <div>
                         <label for="surrname" class="labelCss">Surname:</label>
-                        <input type="text" id="surrname" v-model="formBodyUser.surrname" class="formCssInput"
+                        <input type="text" id="surrname" v-model="formBodyUser.hasSurrname" class="formCssInput"
                             required />
                     </div>
                     <div>
                         <label for="prefferedTheme" class="labelCss">Preferred Theme:</label>
-                        <input type="text" id="prefferedTheme" v-model="formBodyUser.preferedTheme" class="formCssInput"
+                        <input type="text" id="prefferedTheme" v-model="formBodyUser.hasPreferedTheme" class="formCssInput"
                             required />
                     </div>
                     <div>
                         <label for="readingLvlUser" class="boarder-2">Reading Level:</label>
-                        <select v-model="formBodyUser.readingLvl" class="optionsCss  cursor-pointer " required>
+                        <select v-model="formBodyUser.hasReadingLvl" class="optionsCss  cursor-pointer " required>
                             <option class="text-black" value="" disabled selected>Choose One</option>
                             <option class="text-black" value="Beginer">Beginer</option>
                             <option class="text-black" value="Intermediate">Intermediate</option>
@@ -114,9 +114,9 @@
                     </button>
                 </form>
             </div>
-            <div v-for="user in usersOutput" :key="user.name" class="mb-4">
-                <h3 @click="goToAllBooks(user)" class="text-lg cursor-pointer underline" :class="userClass[user.name]">
-                    {{ user.name }} {{ user.surrname }}</h3>
+            <div v-for="user in usersOutput" :key="user.hasName" class="mb-4">
+                <h3 @click="goToAllBooks(user)" class="text-lg cursor-pointer underline" :class="userClass[user.hasName]">
+                    {{ user.hasName }} {{ user.hasSurrname }}</h3>
                 <button @click="getByReadingLvl(user)" class="buttonCss">
                     Reading Level
                 </button>
@@ -222,7 +222,7 @@ const toggleFormBook = () => {
 }
 
 const getByReadingLvl = async (user: User) => {
-    await getBookByReadingLevel(user.readingLvl);
+    await getBookByReadingLevel(user.hasReadingLvl);
     await applyAll(user);
 }
 
@@ -232,7 +232,7 @@ const getBookByThemes = async () => {
 }
 
 const getBookMultiple = async (user: User) => {
-    await getBookPrefferedThemeAndReading(user.preferedTheme, user.readingLvl);
+    await getBookPrefferedThemeAndReading(user.hasPreferedTheme, user.hasReadingLvl);
     await applyAll(user);
 };
 
@@ -245,7 +245,7 @@ const addUser = async () => {
 };
 
 const recomandedBooks = computed(() => {
-    return new Set(booksOutputRecomandations.value.map(b => b.title));
+    return new Set(booksOutputRecomandations.value.map(b => b.hasTitle));
 })
 
 const selectUser = (user: User): Boolean => {
@@ -255,7 +255,7 @@ const selectUser = (user: User): Boolean => {
 const userClass = computed(() => {
     const classes: Record<string, string> = {};
     usersOutput.value.forEach((user) => {
-        classes[user.name] = selectUser(user) ? 'circular-gradient-border2' : '';
+        classes[user.hasName] = selectUser(user) ? 'circular-gradient-border2' : '';
     })
 
     return classes;

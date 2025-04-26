@@ -7,10 +7,10 @@ export const useGetOutputUser = () => {
   const strikes = ref(0);
 
   const formBodyUser = ref<User>({
-    name: "",
-    surrname: "",
-    preferedTheme: "",
-    readingLvl: "",
+    hasName: "",
+    hasSurrname: "",
+    hasPreferedTheme: "",
+    hasReadingLvl: "",
   });
 
   const getAllEntriesUser = async () => {
@@ -33,10 +33,10 @@ export const useGetOutputUser = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          name: formBodyUser.value.name,
-          surrname: formBodyUser.value.surrname,
-          preferedTheme: formBodyUser.value.preferedTheme,
-          readingLvl: formBodyUser.value.readingLvl,
+          hasName: formBodyUser.value.hasName,
+          hasSurrname: formBodyUser.value.hasSurrname,
+          hasPreferedTheme: formBodyUser.value.hasPreferedTheme,
+          hasReadingLvl: formBodyUser.value.hasReadingLvl,
         }),
       });
       const data = await response.json();

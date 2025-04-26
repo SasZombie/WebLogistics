@@ -23,10 +23,10 @@ export function extractOperators(query: string): string[] {
 
 function compareBooks(bookA: Book, bookB: Book): boolean {
   return (
-    bookA.title === bookB.title &&
-    bookA.theme1 === bookB.theme1 &&
-    bookA.theme2 === bookB.theme2 &&
-    bookA.readingLvl === bookB.readingLvl
+    bookA.hasTitle === bookB.hasTitle &&
+    bookA.hasTheme1 === bookB.hasTheme1 &&
+    bookA.hasTheme2 === bookB.hasTheme2 &&
+    bookA.hasReadingLvl === bookB.hasReadingLvl
   );
 }
 

@@ -37,10 +37,10 @@ export const getScrapedBooks = async (url: string) => {
           const readingLvl = getRandomElem(readingLvls);
 
           books.push({
-            title,
-            theme1,
-            theme2,
-            readingLvl,
+            hasTitle: title,
+            hasTheme1: theme1,
+            hasTheme2: theme2,
+            hasReadingLvl: readingLvl,
           });
         } catch (error) {
           console.log("Weird formatting on the website... Don't care");

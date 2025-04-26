@@ -1,14 +1,13 @@
 import { spawn } from "child_process";
 import { defineEventHandler } from "h3";
 import { Book } from "~/types/book";
-import { getCommandExt } from "./utils";
 
 export default defineEventHandler(async (event) => {
   const body = await readBody(event);
   const { xPath } = body;
 
   return new Promise<{ books: Book[] }>((resolve, reject) => {
-    const cppExec = `./Cpp/bin/getBooksBasedOnCriteria${getCommandExt()}`;
+    const cppExec = `./Cpp/bin/getBooksBasedOnCriteriaRDF`;
 
     const child = spawn(cppExec, [xPath]);
 
@@ -34,14 +33,23 @@ export default defineEventHandler(async (event) => {
       }
 
       try {
-        const books: Book[] = JSON.parse(output.trim());
-
-        if (!Array.isArray(books)) {
+        const booksRaw = JSON.parse(output.trim());
+        if (!Array.isArray(booksRaw)) {
           return reject({
             statusCode: 500,
             message: "Invalid output format",
           });
         }
+        const books: Book[] = booksRaw.map((item: string) => {
+          const values = Object.values(item);
+
+          return {
+            hasTitle: values[0] ?? " ",
+            hasTheme1: values[1] ?? " ",
+            hasTheme2: values[2] ?? " ",
+            hasReadingLvl: values[3] ?? " ",
+          };
+        });
         resolve({ books });
       } catch (err) {
         console.error(`Error parsing json: ${err}`);

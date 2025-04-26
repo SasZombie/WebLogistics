@@ -3,39 +3,13 @@
   <ex:Book rdf:about="http://example.org/books/Dune">
     <ex:hasTitle>Dune</ex:hasTitle>
     <ex:hasTheme1>Science Fiction</ex:hasTheme1>
-    <ex:hasTheme2>Fantasy</ex:hasTheme2>
-    <ex:hasReadingLevel>Advanced</ex:hasReadingLevel>
+    <ex:hasTheme2>Real</ex:hasTheme2>
+    <ex:hasReadingLvl>Beginer</ex:hasReadingLvl>
   </ex:Book>
-
-  <ex:Book rdf:about="http://example.org/books/TheSilentPatient">
-    <ex:hasTitle>The Silent Patient</ex:hasTitle>
-    <ex:hasTheme1>Mystery</ex:hasTheme1>
-    <ex:hasTheme2>Murder</ex:hasTheme2>
-    <ex:hasReadingLevel>Intermediate</ex:hasReadingLevel>
-  </ex:Book>
-
-  <ex:Book rdf:about="http://example.org/books/HungerGames">
-    <ex:hasTitle>Hunger Games</ex:hasTitle>
-    <ex:hasTheme1>Science Fiction</ex:hasTheme1>
-    <ex:hasTheme2>Fantasy</ex:hasTheme2>
-    <ex:hasReadingLvl>Beginner</ex:hasReadingLvl>
-  </ex:Book>
-    <ex:Book rdf:about="http://example.org/books/SAS">
-        <ex:hasTitle>SAS</ex:hasTitle>
-        <ex:hasTheme1>123</ex:hasTheme1>
-        <ex:hasTheme2>123</ex:hasTheme2>
-        <ex:hasReadingLvl>Intermediate</ex:hasReadingLvl>
-    </ex:Book>
-    <ex:Book rdf:about="http://example.org/books/SAS">
-        <ex:hasTitle>SAS</ex:hasTitle>
-        <ex:hasTheme1>ZZZZZ</ex:hasTheme1>
-        <ex:hasTheme2>asddas</ex:hasTheme2>
-        <ex:hasReadingLvl>Beginer</ex:hasReadingLvl>
-    </ex:Book>
-    <ex:Book rdf:about="http://example.org/books/Carte in scenariu">
-        <ex:hasTitle>Carte in scenariu</ex:hasTitle>
-        <ex:hasTheme1>asdas</ex:hasTheme1>
-        <ex:hasTheme2>das</ex:hasTheme2>
+    <ex:Book rdf:about="http://example.org/books/Cartea Smekeras">
+        <ex:hasTitle>Cartea Smekeras</ex:hasTitle>
+        <ex:hasTheme1>Robots</ex:hasTheme1>
+        <ex:hasTheme2>Magic</ex:hasTheme2>
         <ex:hasReadingLvl>Intermediate</ex:hasReadingLvl>
     </ex:Book>
 </rdf:RDF>

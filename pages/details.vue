@@ -8,13 +8,14 @@
                     class="dust-out shadows onTealTextCss">
                     {{ item.label }}
                 </button>
+                
             </transition>
-
+            
             <transition name="dust-fade">
-                <p v-if="item.show" key="content"
-                    class="onTealTextCss shadows dust-in">
-                    {{ item.content }}
-                </p>
+                <button v-if="item.show" key="content"
+                class="onTealTextCss shadows dust-in">
+                {{ item.content }}
+                </button>
             </transition>
         </div>
     </div>
@@ -28,13 +29,14 @@ const cooldownActive = ref([false, false, false, false]);
 
 const { getBookField, bookQuerry } = useGetOutputBook();
 
+
 const toggleSection = async (index: number) => {
     if (cooldownActive.value[index]) return;
 
     cooldownActive.value[index] = true;
 
     if (book) {
-        await getBookField(book.title, index);
+        await getBookField(book.hasTitle, index);
     }
 
     bookQuerry.value[index].show = !bookQuerry.value[index].show;

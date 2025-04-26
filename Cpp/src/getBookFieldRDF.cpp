@@ -54,17 +54,16 @@ int main(int argc, const char **argv)
         return 1;
     }
 
-    std::cout << field << '\n';
+    // std::cout << field << '\n';
     for (const auto &elem : elems)
     {
+        // std::cout << elem->tagName << '\n'; 
         if (contains(elem->tagName, field))
         {
-            std::cout << elem->tagName << ' ';
+            std::cout << elem->nodes[0]->tagName << ' ';
             return 0;
         }
     }
 
-    
-
-    // return 1;
+    return 1;
 }

@@ -1,6 +1,6 @@
 export interface User{
-    name: string,
-    surrname: string,
-    preferedTheme: string,
-    readingLvl: string
+    hasName: string,
+    hasSurrname: string,
+    hasPreferedTheme: string,
+    hasReadingLvl: string
 };

@@ -24,7 +24,7 @@ export const useXMS = () => {
       const xsltProcessor = new XSLTProcessor();
       xsltProcessor.importStylesheet(xslDoc);
 
-      const userReadinLevel = user ? user.readingLvl : "None Selected";
+      const userReadinLevel = user ? user.hasReadingLvl : "None Selected";
 
       xsltProcessor.setParameter(null, "userReadingLevel", userReadinLevel);
       xsltProcessor.setParameter(null, "selection", "book");

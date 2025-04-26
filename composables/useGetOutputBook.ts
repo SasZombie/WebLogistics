@@ -13,18 +13,18 @@ export const useGetOutputBook = () => {
   const strikes = ref(0);
 
   const bookQuerry = ref([
-    { label: "Title", content: "Book Title Content", show: false, queryValue: "title" },
-    { label: "Theme 1", content: "Book Theme 1 Content", show: false, queryValue: "theme1" },
-    { label: "Theme 2", content: "Book Theme 2 Content", show: false, queryValue: "theme2" },
-    { label: "Reading Level", content: "Book Reading Level Content", show: false, queryValue: "readingLvl" },
+    { label: "Title", content: "Book Title Content", show: false, queryValue: "ex:hasTitle" },
+    { label: "Theme 1", content: "Book Theme 1 Content", show: false, queryValue: "ex:hasTheme1" },
+    { label: "Theme 2", content: "Book Theme 2 Content", show: false, queryValue: "ex:hasTheme2" },
+    { label: "Reading Level", content: "Book Reading Level Content", show: false, queryValue: "ex:hasReadingLvl" },
   ]);
 
   const booksOutputRecomandations = ref<Book[]>([]);
   const formBodyBook = ref<Book>({
-    title: "",
-    theme1: "",
-    theme2: "",
-    readingLvl: "",
+    hasTitle: "",
+    hasTheme1: "",
+    hasTheme2: "",
+    hasReadingLvl: "",
   });
 
   const getAllEntriesBook = async () => {
@@ -34,6 +34,7 @@ export const useGetOutputBook = () => {
 
       if (Array.isArray(data.books)) {
         booksOutput.value = data.books;
+
       } else {
         console.error("Invalid data format received:", data);
         booksOutput.value = [];
@@ -47,10 +48,10 @@ export const useGetOutputBook = () => {
     try {
 
       const toSend = JSON.stringify({
-        title: formBodyBook.value.title,
-        theme1: formBodyBook.value.theme1,
-        theme2: formBodyBook.value.theme2,
-        readingLvl: formBodyBook.value.readingLvl,
+        hasTitle: formBodyBook.value.hasTitle,
+        hasTheme1: formBodyBook.value.hasTheme1,
+        hasTheme2: formBodyBook.value.hasTheme2,
+        hasReadingLvl: formBodyBook.value.hasReadingLvl,
       })
 
       const response = await fetch("/api/addEntryBook", {
@@ -81,7 +82,7 @@ export const useGetOutputBook = () => {
     preffredTheme: string,
     readingLvl: string
   ) => {
-    const xPath = `/books/book[readingLvl = ${readingLvl} and (theme1 = ${preffredTheme} or theme2 = ${preffredTheme})]`;
+    const xPath = `/books/book[ex:hasReadingLvl = ${readingLvl} and (ex:hasTheme1 = ${preffredTheme} or ex:hasTheme2 = ${preffredTheme})]`;
     const parts = splitXPathExpression(xPath);
 
     const operators = extractOperators(xPath);
@@ -121,7 +122,7 @@ export const useGetOutputBook = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          xPath: `/books/book[readingLvl = ${readingLevel}]`,
+          xPath: `/books/book[ex:hasReadingLvl = ${readingLevel}]`,
         }),
       });
       const data = await response.json();
@@ -132,7 +133,7 @@ export const useGetOutputBook = () => {
   };
 
   const getBookByTheme = async (prefferedTheme: string) => {
-    const xPath = `/books/book[theme1 = ${prefferedTheme} or theme2 = ${prefferedTheme}]`;
+    const xPath = `/books/book[ex:hasTheme1 = ${prefferedTheme} or ex:hasTheme2 = ${prefferedTheme}]`;
     const parts = splitXPathExpression(xPath);
 
     const operators = extractOperators(xPath);
@@ -150,6 +151,7 @@ export const useGetOutputBook = () => {
           }),
         });
         const data = await response.json();
+        console.log(data.books);
         if (Array.isArray(data.books)) {
           arrays.push(data.books);
         }
@@ -162,10 +164,11 @@ export const useGetOutputBook = () => {
 
     const result = evaluateBookExpression(arrays, combinedIndicies);
     booksOutputRecomandations.value = result;
+
   };
 
   const getBookField = async (bookName: string, index: number) => {
-    const xPath = `/books/book[title = ${bookName}]/${bookQuerry.value[index].queryValue}`;
+    const xPath = `/books/book[ex:hasTitle = ${bookName}]/${bookQuerry.value[index].queryValue}`;
 
     try {
       const response = await fetch("/api/getBookField", {
