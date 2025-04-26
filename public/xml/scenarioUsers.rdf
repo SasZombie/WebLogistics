@@ -15,4 +15,10 @@
     <ex:prefersTheme>Magic</ex:prefersTheme>
   </ex:User>
 
+    <ex:User>
+        <ex:hasName>Utilizator in scenariu</ex:hasName>
+        <ex:hasSurrname>dsa</ex:hasSurrname>
+        <ex:hasPreferedTheme>das</ex:hasPreferedTheme>
+        <ex:hasReadingLvl>Beginer</ex:hasReadingLvl>
+    </ex:User>
 </rdf:RDF>

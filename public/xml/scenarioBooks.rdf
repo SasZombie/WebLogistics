@@ -18,6 +18,24 @@
     <ex:hasTitle>Hunger Games</ex:hasTitle>
     <ex:hasTheme1>Science Fiction</ex:hasTheme1>
     <ex:hasTheme2>Fantasy</ex:hasTheme2>
-    <ex:hasReadingLevel>Beginner</ex:hasReadingLevel>
+    <ex:hasReadingLvl>Beginner</ex:hasReadingLvl>
   </ex:Book>
+    <ex:Book rdf:about="http://example.org/books/SAS">
+        <ex:hasTitle>SAS</ex:hasTitle>
+        <ex:hasTheme1>123</ex:hasTheme1>
+        <ex:hasTheme2>123</ex:hasTheme2>
+        <ex:hasReadingLvl>Intermediate</ex:hasReadingLvl>
+    </ex:Book>
+    <ex:Book rdf:about="http://example.org/books/SAS">
+        <ex:hasTitle>SAS</ex:hasTitle>
+        <ex:hasTheme1>ZZZZZ</ex:hasTheme1>
+        <ex:hasTheme2>asddas</ex:hasTheme2>
+        <ex:hasReadingLvl>Beginer</ex:hasReadingLvl>
+    </ex:Book>
+    <ex:Book rdf:about="http://example.org/books/Carte in scenariu">
+        <ex:hasTitle>Carte in scenariu</ex:hasTitle>
+        <ex:hasTheme1>asdas</ex:hasTheme1>
+        <ex:hasTheme2>das</ex:hasTheme2>
+        <ex:hasReadingLvl>Intermediate</ex:hasReadingLvl>
+    </ex:Book>
 </rdf:RDF>

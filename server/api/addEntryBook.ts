@@ -1,7 +1,7 @@
 import { exec } from "child_process";
 import { defineEventHandler } from "h3";
 import { Book } from "~/types/book";
-import { sanitze, matches  } from "./utils";
+import { sanitze, matches, getCommandExt  } from "./utils";
 
 
 export default defineEventHandler(async (event) => {
@@ -13,7 +13,7 @@ export default defineEventHandler(async (event) => {
   const sanitizedTheme2 = sanitze(theme2);
   const sanitizedReadingLvl = sanitze(readingLvl);
 
-  const cppExec = `./Cpp/bin/addEntryInBook "${sanitizedTitle}" "${sanitizedTheme1}" "${sanitizedTheme2}" "${sanitizedReadingLvl}"`;
+  const cppExec = `./Cpp/bin/addEntryInBook${getCommandExt()} "${sanitizedTitle}" "${sanitizedTheme1}" "${sanitizedTheme2}" "${sanitizedReadingLvl}"`;
 
   const responseMatches = matches.value;
   matches.value = 0;

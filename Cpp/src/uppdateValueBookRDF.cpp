@@ -4,25 +4,32 @@
 #include <functional>
 #include "xmlParser/xmlparser.hpp"
 
-int main()
+//What/ where / what canges
+int main(int argc, const char** argv)
 {
-    const auto xml = xmlParser::readXML("bookRdf.rdf");
+    if(argc < 4)
+    {
+        std::cerr << "Not enough args\n";
+        return 1;
+    }
+
+    const auto xml = xmlParser::readXML("scenarioBooks.rdf");
    
-    xmlParser::nodeFilter f1{"ex:hasTitle", [](std::string_view name){
-        return name == "Dune";
+    xmlParser::nodeFilter f1{argv[1], [&](std::string_view name){
+        return name == argv[2];
     }};
     
-    auto node = xml->findNode("Dune", f1);
+    auto node = xml->findNode(argv[2], f1);
 
     if(node)
     {
-        std::cout << "NOde = " << node->tagName;
-        node->tagName = "NEWWWW DEWWWN";
-    }else
+        node->tagName = argv[3];
+        xmlParser::writeXML("scenarioBooks.rdf", xml);
+    }
+    else
     {
-        std::cout << "NULLPTR";
+        std::cerr << "Cannot find specified field\n";
+        return 1;
     }
 
-
-    xmlParser::writeXML("bookRdf.rdf", xml);
 }

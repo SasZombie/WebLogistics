@@ -11,23 +11,19 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ../bin)
 add_library(xmlparser SHARED xmlParser/xmlparser.cpp)
 add_library(utils SHARED utils.cpp)
 
-add_executable(getAllEntriesBook getAllEntriesBook.cpp)
-target_link_libraries(getAllEntriesBook xmlparser utils)
+file(GLOB ALL_CPP_FILES *.cpp)
 
-add_executable(addEntryInBook addEntryInBook.cpp)
-target_link_libraries(addEntryInBook xmlparser utils)
+set(EXCLUDED_FILES
+    utils.cpp
+    xmlparser.cpp
+)
 
-add_executable(addEntryInUser addEntryInUser.cpp)
-target_link_libraries(addEntryInUser xmlparser utils)
+foreach(excluded ${EXCLUDED_FILES})
+    list(REMOVE_ITEM ALL_CPP_FILES "${CMAKE_CURRENT_SOURCE_DIR}/${excluded}")
+endforeach()
 
-add_executable(getAllEntriesUser getAllEntriesUser.cpp)
-target_link_libraries(getAllEntriesUser xmlparser utils)
-
-add_executable(getBooksBasedOnCriteria getBooksBasedOnCriteria.cpp)
-target_link_libraries(getBooksBasedOnCriteria xmlparser utils)
-
-add_executable(getBookField getBookField.cpp)
-target_link_libraries(getBookField xmlparser utils)
-
-add_executable(uppdateValueBookRDF uppdateValueBookRDF.cpp)
-target_link_libraries(uppdateValueBookRDF xmlparser utils)
+foreach(source_file ${ALL_CPP_FILES})
+    get_filename_component(exe_name ${source_file} NAME_WE)
+    add_executable(${exe_name} ${source_file})
+    target_link_libraries(${exe_name} xmlparser utils)
+endforeach()

@@ -6,3 +6,4 @@
 
 void toJson(const std::vector<std::shared_ptr<xmlParser::xmlNode>> &elems, const std::string &toFind) noexcept;
 std::tuple<std::string, std::string> convertXPathStatement(std::string_view xPath) noexcept;
+bool contains(std::string_view hay, std::string_view needle) noexcept;

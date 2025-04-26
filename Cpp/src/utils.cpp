@@ -4,6 +4,24 @@
 #include <memory>
 #include "xmlParser/xmlparser.hpp"
 
+bool contains(std::string_view hay, std::string_view needle) noexcept
+{
+    if (hay == needle)
+        return true;
+    size_t hayLen = hay.length(), needleLen = needle.length();
+
+    if (hayLen <= needleLen)
+        return false;
+
+    size_t ind = 0;
+
+    while (ind < needleLen && hay[ind] == needle[ind])
+    {
+        ++ind;
+    }
+    return (ind == needleLen && hay[ind] == ' ');
+}
+
 void toJson(const std::vector<std::shared_ptr<xmlParser::xmlNode>> &elems, const std::string &toFind) noexcept
 {
     std::ostringstream output;
@@ -18,7 +36,7 @@ void toJson(const std::vector<std::shared_ptr<xmlParser::xmlNode>> &elems, const
 
         case xmlParser::TokenType::TAG_OPEN:
         {
-            if (node->tagName == toFind)
+            if (contains(node->tagName, toFind))
             {
                 output << ",\n{\n";
             }
@@ -99,7 +117,7 @@ std::tuple<std::string, std::string> convertXPathStatement(std::string_view xPat
             fieldExpectedValue += xPath[index];
             ++index;
         }
-        if(xPath[index] == ']')
+        if (xPath[index] == ']')
         {
             break;
         }

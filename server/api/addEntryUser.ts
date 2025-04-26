@@ -1,7 +1,7 @@
 import { exec } from "child_process";
 import { defineEventHandler } from "h3";
 import { User } from "~/types/user";
-import { sanitze, matches } from "./utils";
+import { sanitze, matches, getCommandExt } from "./utils";
 
 export default defineEventHandler(async (event) => {
   const body: User = await readBody(event);
@@ -12,7 +12,7 @@ export default defineEventHandler(async (event) => {
   const sanitizedPreferedTheme = sanitze(preferedTheme);
   const sanitizedReadingLvl = sanitze(readingLvl);
 
-  const cppExec = `./Cpp/bin/addEntryInUser "${sanitizedName}" "${sanitizedSurrname}" "${sanitizedPreferedTheme}" "${sanitizedReadingLvl}"`;
+  const cppExec = `./Cpp/bin/addEntryInUser${getCommandExt()} "${sanitizedName}" "${sanitizedSurrname}" "${sanitizedPreferedTheme}" "${sanitizedReadingLvl}"`;
 
   const responseMatches = matches.value;
   return new Promise<{ statusCode: number; message: string }>(

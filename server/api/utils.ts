@@ -3,7 +3,6 @@ let problematicKeywords = ["<!DOCKTYPE", "<!ENTITY", "<!CDATA[]]"];
 export const matches = ref(0);
 
 export const sanitze = (input: string): string => {
-
   problematicKeywords.forEach((keyword) => {
     const regex = new RegExp(keyword, "gi");
     const match = input.match(regex);
@@ -41,4 +40,30 @@ export const sanitze = (input: string): string => {
   }
 
   return sanitized;
+};
+
+const a = true;
+
+export const getCommandExt = (): string => {
+  if (a) {
+    return "RDF";
+  }
+
+  return "";
+};
+
+export const getCommandPrefixT = (): string => {
+  if (a) {
+    return "ex:hasT";
+  }
+
+  return "T";
+};
+
+export const getCommandPrefixP = (): string => {
+  if (a) {
+    return "ex:hasR";
+  }
+
+  return "r";
 };

@@ -1,10 +1,11 @@
 import { spawn } from "child_process";
 import { defineEventHandler } from "h3";
 import { User } from "~/types/user";
+import { getCommandExt } from "./utils";
 
 export default defineEventHandler(async (event) => {
   return new Promise<{ users: User[] }>((resolve, reject) => {
-    const cppExec = "./Cpp/bin/getAllEntriesUser";
+    const cppExec = `./Cpp/bin/getAllEntriesUser${getCommandExt()}`;
 
     const child = spawn(cppExec);
 
@@ -30,13 +31,24 @@ export default defineEventHandler(async (event) => {
       }
 
       try {
-        const users: User[] = JSON.parse(output.trim());
-        if (!Array.isArray(users)) {
+        const usersRaw: string[] = JSON.parse(output.trim());
+        if (!Array.isArray(usersRaw)) {
           return reject({
             statusCode: 500,
             message: "Invalid output format",
           });
         }
+
+        const users: User[] = usersRaw.map((item: string) => {
+          const values = Object.values(item);
+
+          return {
+            name: values[0] ?? " ",
+            surrname: values[1] ?? " ",
+            preferedTheme: values[2] ?? " ",
+            readingLvl: values[3] ?? " ",
+          };
+        });
 
         resolve({ users });
       } catch (err) {

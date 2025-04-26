@@ -1,13 +1,14 @@
 import { spawn } from "child_process";
 import { defineEventHandler } from "h3";
 import { Book } from "~/types/book";
+import { getCommandExt } from "./utils";
 
 export default defineEventHandler(async (event) => {
   const body = await readBody(event);
   const { xPath } = body;
 
   return new Promise<{ books: Book[] }>((resolve, reject) => {
-    const cppExec = "./Cpp/bin/getBooksBasedOnCriteria";
+    const cppExec = `./Cpp/bin/getBooksBasedOnCriteria${getCommandExt()}`;
 
     const child = spawn(cppExec, [xPath]);
 
