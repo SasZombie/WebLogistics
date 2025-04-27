@@ -11,7 +11,7 @@ int main(int argc, const char **argv)
         return -1;
     }
 
-    const auto xml = xmlParser::readXML("public/xml/scenarioBooks.rdf");
+    const auto xml = xmlParser::readXML("server/content/xml/scenarioBooks.rdf");
 
     const auto &[a, b] = convertXPathStatement(argv[1]);
 

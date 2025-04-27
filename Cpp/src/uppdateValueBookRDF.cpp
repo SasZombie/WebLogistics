@@ -13,7 +13,7 @@ int main(int argc, const char **argv)
         return 1;
     }
 
-    const auto xml = xmlParser::readXML("public/xml/scenarioBooks.rdf");
+    const auto xml = xmlParser::readXML("server/content/xml/scenarioBooks.rdf");
 
     xmlParser::nodeFilter f1{"ex:hasTitle", [&](std::string_view name)
                              {
@@ -28,7 +28,7 @@ int main(int argc, const char **argv)
         if (fieldNode)
         {
             fieldNode->nodes[0]->tagName = argv[3];
-            xmlParser::writeXML("public/xml/scenarioBooks.rdf", xml);
+            xmlParser::writeXML("server/content/xml/scenarioBooks.rdf", xml);
         }
         else
         {

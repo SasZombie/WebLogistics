@@ -31,3 +31,6 @@ Cpp/src/Makefile
 .vscode
 
 *.so
+
+__pycache__
+server/content/chroma_db/

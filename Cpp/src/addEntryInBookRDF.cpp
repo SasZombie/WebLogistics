@@ -17,7 +17,6 @@ static std::string removeSpaces(const std::string& str) noexcept
     return newStr;
 }
 
-
 int main(const int argc, const char **argv)
 {
     if (argc < 5)
@@ -26,7 +25,7 @@ int main(const int argc, const char **argv)
         return 1;
     }
 
-    std::fstream file("public/xml/scenarioBooks.rdf", std::ios::in | std::ios::out | std::ios::binary);
+    std::fstream file("server/content/xml/scenarioBooks.rdf", std::ios::in | std::ios::out | std::ios::binary);
     if (!file.is_open())
     {
         std::cerr << "Error opening file!" << '\n';

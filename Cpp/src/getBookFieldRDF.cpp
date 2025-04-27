@@ -32,7 +32,7 @@ int main(int argc, const char **argv)
 
     const std::string xPath = argv[1];
 
-    const auto xml = xmlParser::readXML("public/xml/scenarioBooks.rdf");
+    const auto xml = xmlParser::readXML("server/content/xml/scenarioBooks.rdf");
 
     const std::string field = getSearchedField(xPath, ']');
 

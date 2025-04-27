@@ -16,7 +16,7 @@
                         {{ item.content }}
                     </button>
 
-                    <input v-else v-model="item.content" @blur="disableEditing(index)" @keyup.enter="disableEditing(index)"
+                    <input v-else v-model="item.content" @keyup.enter="disableEditing(index)"
                         class="text-black px-2 py-1 rounded w-full" autofocus />
                 </div>
             </transition>
@@ -33,6 +33,18 @@ const cooldownActive = ref([false, false, false, false]);
 const clickTimeout = ref<NodeJS.Timeout | null>(null);
 
 const { getBookField, bookQuerry, uppdateBookField } = useGetOutputBook();
+const { uppdateBooks, contextPage, firstTimePerPage, generateIntro, messageHistoryDisplay, responseValue } = useLLM();
+
+onMounted( async () => {
+    if (book) {
+        contextPage.value = book.hasTitle;
+        firstTimePerPage.value = true;
+        console.log(`Shoudl generate for ${book.hasTitle}`)
+        const response = await generateIntro(book.hasTitle);
+
+        messageHistoryDisplay.value.push({isUserMessage: false, message: "Meow"});
+    }
+})
 
 const toggleSection = async (index: number) => {
     if (cooldownActive.value[index]) return;
@@ -56,7 +68,7 @@ const handleClick = (index: number) => {
     clickTimeout.value = setTimeout(() => {
         toggleSection(index);
         clickTimeout.value = null;
-    }, 150);
+    }, 250);
 };
 
 const enableEditing = (index: number) => {
@@ -71,7 +83,7 @@ const disableEditing = async (index: number) => {
     if (book) {
         bookQuerry.value[index].isEditing = false;
         await uppdateBookField(book.hasTitle, bookQuerry.value[index].queryValue, bookQuerry.value[index].content, index);
-        console.log("Hello")
+        await uppdateBooks();
         window.location.href = "/";
     }
 };

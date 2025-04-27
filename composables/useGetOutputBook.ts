@@ -33,7 +33,14 @@ export const useGetOutputBook = () => {
       const data = await response.json();
 
       if (Array.isArray(data.books)) {
-        booksOutput.value = data.books;
+        for(let elem in data.books)
+        {
+          const ind = Number.parseInt(elem);
+          if(booksOutput.value[ind] !== data.books[ind])
+          {
+            booksOutput.value[ind] = data.books[ind];
+          }
+        }
 
       } else {
         console.error("Invalid data format received:", data);

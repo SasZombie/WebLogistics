@@ -1,0 +1,123 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:ex="http://example.org/schema#">
+    <ex:Book rdf:about="http://example.org/books/1984(SignetClassics)">
+        <ex:hasTitle>1984 (Signet Classics)</ex:hasTitle>
+        <ex:hasTheme1>Apocalypse</ex:hasTheme1>
+        <ex:hasTheme2>Robots</ex:hasTheme2>
+        <ex:hasReadingLvl>Beginner</ex:hasReadingLvl>
+    </ex:Book>
+    <ex:Book rdf:about="http://example.org/books/AdventuresofHuckleberryFinn">
+        <ex:hasTitle>Adventures of Huckleberry Finn</ex:hasTitle>
+        <ex:hasTheme1>Real</ex:hasTheme1>
+        <ex:hasTheme2>Apocalypse</ex:hasTheme2>
+        <ex:hasReadingLvl>Beginner</ex:hasReadingLvl>
+    </ex:Book>
+    <ex:Book rdf:about="http://example.org/books/TheCompleteSherlockHolmes">
+        <ex:hasTitle>The Complete Sherlock Holmes</ex:hasTitle>
+        <ex:hasTheme1>Fantesy</ex:hasTheme1>
+        <ex:hasTheme2>Apocalypse</ex:hasTheme2>
+        <ex:hasReadingLvl>Advanced</ex:hasReadingLvl>
+    </ex:Book>
+    <ex:Book rdf:about="http://example.org/books/TheAlchemist,25thAnniversary:AFableAboutFollowingYourDream">
+        <ex:hasTitle>The Alchemist, 25th Anniversary: A Fable About Following Your Dream</ex:hasTitle>
+        <ex:hasTheme1>Magic</ex:hasTheme1>
+        <ex:hasTheme2>Apocalypse</ex:hasTheme2>
+        <ex:hasReadingLvl>Intermediate</ex:hasReadingLvl>
+    </ex:Book>
+    <ex:Book rdf:about="http://example.org/books/AnimalFarm">
+        <ex:hasTitle>Animal Farm</ex:hasTitle>
+        <ex:hasTheme1>Real</ex:hasTheme1>
+        <ex:hasTheme2>Fantesy</ex:hasTheme2>
+        <ex:hasReadingLvl>Advanced</ex:hasReadingLvl>
+    </ex:Book>
+    <ex:Book rdf:about="http://example.org/books/AnnaKarenina(WordsworthClassics)">
+        <ex:hasTitle>Anna Karenina (Wordsworth Classics)</ex:hasTitle>
+        <ex:hasTheme1>Fantesy</ex:hasTheme1>
+        <ex:hasTheme2>Magic</ex:hasTheme2>
+        <ex:hasReadingLvl>Beginner</ex:hasReadingLvl>
+    </ex:Book>
+    <ex:Book rdf:about="http://example.org/books/AsILayDying">
+        <ex:hasTitle>As I Lay Dying</ex:hasTitle>
+        <ex:hasTheme1>Magic</ex:hasTheme1>
+        <ex:hasTheme2>Robots</ex:hasTheme2>
+        <ex:hasReadingLvl>Beginner</ex:hasReadingLvl>
+    </ex:Book>
+    <ex:Book rdf:about="http://example.org/books/Beloved">
+        <ex:hasTitle>Beloved</ex:hasTitle>
+        <ex:hasTheme1>Robots</ex:hasTheme1>
+        <ex:hasTheme2>Magic</ex:hasTheme2>
+        <ex:hasReadingLvl>Intermediate</ex:hasReadingLvl>
+    </ex:Book>
+    <ex:Book rdf:about="http://example.org/books/Catch-22:50thAnniversaryEdition">
+        <ex:hasTitle>Catch-22: 50th Anniversary Edition</ex:hasTitle>
+        <ex:hasTheme1>Robots</ex:hasTheme1>
+        <ex:hasTheme2>Magic</ex:hasTheme2>
+        <ex:hasReadingLvl>Intermediate</ex:hasReadingLvl>
+    </ex:Book>
+    <ex:Book rdf:about="http://example.org/books/TheCatcherintheRye">
+        <ex:hasTitle>The Catcher in the Rye</ex:hasTitle>
+        <ex:hasTheme1>Apocalypse</ex:hasTheme1>
+        <ex:hasTheme2>Magic</ex:hasTheme2>
+        <ex:hasReadingLvl>Beginner</ex:hasReadingLvl>
+    </ex:Book>
+    <ex:Book rdf:about="http://example.org/books/CharlieandtheChocolateFactory">
+        <ex:hasTitle>Charlie and the Chocolate Factory</ex:hasTitle>
+        <ex:hasTheme1>Magic</ex:hasTheme1>
+        <ex:hasTheme2>Fantesy</ex:hasTheme2>
+        <ex:hasReadingLvl>Beginner</ex:hasReadingLvl>
+    </ex:Book>
+    <ex:Book rdf:about="http://example.org/books/TheCalloftheWild(GlobalClassics)">
+        <ex:hasTitle>The Call of the Wild (Global Classics)</ex:hasTitle>
+        <ex:hasTheme1>Magic</ex:hasTheme1>
+        <ex:hasTheme2>Magic</ex:hasTheme2>
+        <ex:hasReadingLvl>Advanced</ex:hasReadingLvl>
+    </ex:Book>
+    <ex:Book rdf:about="http://example.org/books/TheCodeoftheWoosters">
+        <ex:hasTitle>The Code of the Woosters</ex:hasTitle>
+        <ex:hasTheme1>Fantesy</ex:hasTheme1>
+        <ex:hasTheme2>Real</ex:hasTheme2>
+        <ex:hasReadingLvl>Advanced</ex:hasReadingLvl>
+    </ex:Book>
+    <ex:Book rdf:about="http://example.org/books/CompleteTales&amp;PoemsOfEdgarAllanPo">
+        <ex:hasTitle>Complete Tales &amp; Poems Of Edgar Allan Po</ex:hasTitle>
+        <ex:hasTheme1>Magic</ex:hasTheme1>
+        <ex:hasTheme2>Fantesy</ex:hasTheme2>
+        <ex:hasReadingLvl>Beginner</ex:hasReadingLvl>
+    </ex:Book>
+    <ex:Book rdf:about="http://example.org/books/TheColorPurple:ANovel">
+        <ex:hasTitle>The Color Purple: A Novel</ex:hasTitle>
+        <ex:hasTheme1>Robots</ex:hasTheme1>
+        <ex:hasTheme2>Robots</ex:hasTheme2>
+        <ex:hasReadingLvl>Beginner</ex:hasReadingLvl>
+    </ex:Book>
+    <ex:Book rdf:about="http://example.org/books/TheCountofMonteCristo">
+        <ex:hasTitle>The Count of Monte Cristo</ex:hasTitle>
+        <ex:hasTheme1>Robots</ex:hasTheme1>
+        <ex:hasTheme2>Robots</ex:hasTheme2>
+        <ex:hasReadingLvl>Intermediate</ex:hasReadingLvl>
+    </ex:Book>
+    <ex:Book rdf:about="http://example.org/books/TheCuriousIncidentoftheDogintheNight-Time">
+        <ex:hasTitle>The Curious Incident of the Dog in the Night-Time</ex:hasTitle>
+        <ex:hasTheme1>Apocalypse</ex:hasTheme1>
+        <ex:hasTheme2>Robots</ex:hasTheme2>
+        <ex:hasReadingLvl>Advanced</ex:hasReadingLvl>
+    </ex:Book>
+    <ex:Book rdf:about="http://example.org/books/TheDeathofArtemioCruz:ANovel(FSGClassics)">
+        <ex:hasTitle>The Death of Artemio Cruz: A Novel (FSG Classics)</ex:hasTitle>
+        <ex:hasTheme1>Apocalypse</ex:hasTheme1>
+        <ex:hasTheme2>Robots</ex:hasTheme2>
+        <ex:hasReadingLvl>Intermediate</ex:hasReadingLvl>
+    </ex:Book>
+    <ex:Book rdf:about="http://example.org/books/DiaryofaMadman,andotherstories">
+        <ex:hasTitle>Diary of a Madman, and other stories</ex:hasTitle>
+        <ex:hasTheme1>Fantesy</ex:hasTheme1>
+        <ex:hasTheme2>Magic</ex:hasTheme2>
+        <ex:hasReadingLvl>Intermediate</ex:hasReadingLvl>
+    </ex:Book>
+    <ex:Book rdf:about="http://example.org/books/AnneFrank:TheDiaryofaYoungGirl">
+        <ex:hasTitle>Anne Frank: The Diary of a Young Girl</ex:hasTitle>
+        <ex:hasTheme1>Apocalypse</ex:hasTheme1>
+        <ex:hasTheme2>Fantesy</ex:hasTheme2>
+        <ex:hasReadingLvl>Beginner</ex:hasReadingLvl>
+    </ex:Book>
+</rdf:RDF>

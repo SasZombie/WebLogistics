@@ -4,8 +4,8 @@ import type { User } from "~/types/user";
 
 export const useCommon = () => {
   const router = useRouter();
-
-  return { router };
+  const route = useRoute();
+  return { router, route };
 };
 
 export const useStoreBook = defineStore("storeBook", {

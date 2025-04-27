@@ -140,6 +140,7 @@ import type { User } from '~/types/user';
 const { getAllEntriesUser, usersOutput, submitFormUser, formBodyUser } = useGetOutputUser();
 const { booksOutput, getAllEntriesBook, submitFormBook, formBodyBook, getBookByReadingLevel, getBookPrefferedThemeAndReading, getBookByTheme, bookThemeForm, booksOutputRecomandations } = useGetOutputBook();
 const { updateAll, svgHeight, paths, pathLengths, pathRefs, updatePathLengths, updateSvg, restartAnimation, points } = useAnimation();
+const { uppdateBooks, uppdateUsers, contextPage, generateIntro } = useLLM();
 const { router } = useCommon();
 
 
@@ -155,8 +156,11 @@ const selectedUser = ref<User | null>();
 onMounted(async () => {
     await getAllEntriesBook();
     await getAllEntriesUser();
-    updateSvg()
-    updatePathLengths()
+    updateSvg();
+    updatePathLengths();
+
+    await generateIntro("index");
+
 })
 
 const goToDetails = (book: Book) => {
@@ -238,10 +242,12 @@ const getBookMultiple = async (user: User) => {
 
 const addBook = async () => {
     await submitFormBook();
+    uppdateBooks();
 };
 
 const addUser = async () => {
     await submitFormUser();
+    uppdateUsers();
 };
 
 const recomandedBooks = computed(() => {
