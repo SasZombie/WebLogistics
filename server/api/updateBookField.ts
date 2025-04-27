@@ -1,6 +1,5 @@
 import { exec } from "child_process";
 import { defineEventHandler } from "h3";
-import { User } from "~/types/user";
 import { sanitze, matches } from "./utils";
 
 export default defineEventHandler(async (event) => {
@@ -13,7 +12,8 @@ export default defineEventHandler(async (event) => {
   const sanitizedNewValue = sanitze(newValue);
 
 
-  const cppExec = `./Cpp/bin/uppdateValueBookRDF "${sanitizedField}" "${sanitizedName}" "${sanitizedNewValue}"`;
+  console.log(sanitizedField, sanitizedName, sanitizedNewValue);
+  const cppExec = `./Cpp/bin/uppdateValueBookRDF "${sanitizedName}" "${sanitizedField}" "${sanitizedNewValue}"`;
 
   const responseMatches = matches.value;
   return new Promise<{ statusCode: number; message: string }>(

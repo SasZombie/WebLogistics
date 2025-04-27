@@ -144,7 +144,7 @@ namespace xmlParser
 
         for (const auto &child : nodes)
         {
-            auto result = child->findNode(target);
+            auto result = child->findNode(target, filter);
 
             if (result)
             {

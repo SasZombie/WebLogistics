@@ -1,23 +1,21 @@
 <?xml version="1.0"?>
 <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:ex="http://example.org/schema#">
-
   <ex:User rdf:about="http://example.org/users/Sas">
     <ex:hasName>Sas</ex:hasName>
     <ex:hasSurrname>Zombie</ex:hasSurrname>
     <ex:prefersTheme>Real</ex:prefersTheme>
     <ex:hasReadingLevel>Beginer</ex:hasReadingLevel>
   </ex:User>
-
   <ex:User rdf:about="http://example.org/users/Boss">
     <ex:hasName>Boss</ex:hasName>
     <ex:hasSurrname>Zombie</ex:hasSurrname>
     <ex:prefersTheme>Magic</ex:prefersTheme>
     <ex:hasReadingLevel>Intermediate</ex:hasReadingLevel>
   </ex:User>
-    <ex:User>
-        <ex:hasName>Sorin Daniel</ex:hasName>
-        <ex:hasSurrname>Dababy</ex:hasSurrname>
-        <ex:hasPreferedTheme>Robots</ex:hasPreferedTheme>
-        <ex:hasReadingLvl>Beginer</ex:hasReadingLvl>
-    </ex:User>
+  <ex:User>
+    <ex:hasName>Sorin Daniel</ex:hasName>
+    <ex:hasSurrname>Dababy</ex:hasSurrname>
+    <ex:hasPreferedTheme>Robots</ex:hasPreferedTheme>
+    <ex:hasReadingLvl>Beginer</ex:hasReadingLvl>
+  </ex:User>
 </rdf:RDF>

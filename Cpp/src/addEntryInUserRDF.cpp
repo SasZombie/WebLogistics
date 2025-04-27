@@ -2,6 +2,21 @@
 #include <fstream>
 #include <string>
 
+static std::string removeSpaces(const std::string& str) noexcept
+{
+    std::string newStr;
+
+    for(char c : str)
+    {
+        if(c != ' ')
+        {
+            newStr += c;
+        }
+    }
+
+    return newStr;
+}
+
 
 int main(const int argc, const char **argv)
 {
@@ -35,7 +50,7 @@ int main(const int argc, const char **argv)
 
     file.seekp(pos, std::ios::beg);
 
-    file << "\n    <ex:User>\n"
+    file << "\n    <ex:User rdf:about=\"http://example.org/users/" << removeSpaces(argv[1]) <<"\">\n"
          << "        <ex:hasName>" << argv[1] << "</ex:hasName>\n"
          << "        <ex:hasSurrname>" << argv[2] << "</ex:hasSurrname>\n"
          << "        <ex:hasPreferedTheme>" << argv[3] << "</ex:hasPreferedTheme>\n"
